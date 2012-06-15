@@ -22,7 +22,7 @@ console.log("Hello World!");
 ```
 ## Test 1
 
-Should't you have written a test first? **Oops, I forgot this was a TDD kata.**
+Shouldn't you have written a test first? **Oops, I forgot this was a TDD kata.**
 ```javascript
 buster.testCase("Greeter", {
     "calls console log with hello": function () {
