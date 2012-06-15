@@ -152,6 +152,7 @@ How do you know it works? **I run all my tests including a manual end to end tes
 Can you show me the entire implementation? **Sure**
 ```javascript
 // test/greeter-test.js
+"use strict";
 
 buster.testCase("Greeter", {
 
@@ -175,6 +176,8 @@ buster.testCase("Voice", {
 ```
 ```javascript
 // lib/greeter.js
+"use strict";
+
 var CreateGreeter = function (voice) {
     return {
         greet: function () {
