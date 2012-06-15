@@ -14,7 +14,7 @@ Where are the unit tests and code on the file system? **The code is structured a
 
 What is buster? **buster.js is the javascript testing framework we are using for this kata.**
 
-How do you run the tests? **Open greeter-kata-test.html in Chrome or Firefox (not IE).**
+How do you run the tests? **Open greeter-test.html in Chrome or Firefox (not IE).**
 
 How would you write hello world?
 ```javascript
