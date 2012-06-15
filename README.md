@@ -67,11 +67,12 @@ Ok, rewrite the first test.
 ```javascript
 buster.testCase("Greeter", {
 
-    "uses voice to say a greeting": function() {
-        var voice = this.stub({ say: function () {} });
+    "uses voice to greet": function() {
+        var voice = this.stub();
         var greeter = CreateGreeter(voice);
         greeter.greet();
-        assert.called(voice.say);
+        assert.called(voice);
+        assert.match(voice.firstCall.args[0], /Hello/);
     }
 });
 ```
@@ -96,7 +97,7 @@ Why didn't you finish the implementation? **I wanted to see the test fail and ch
 Is it difficult to make it pass now? **No**
 ```javascript
         greet: function () {
-            voice.say("Hello, world!");
+            voice("Hello, world!");
         }
 ```
 Are we done? **No**
@@ -109,9 +110,9 @@ For simple things, is manually running an end to end test sufficient? **Yes**
 
 Ok, run it! **Like I said, it didn't do anything!**
 
-How do you make it do something? **Implement voice.say**
+How do you make it do something? **Implement voice**
 
-How do you implement voice.say? **I don't know. Where we are sending the output?**
+How do you implement voice? **I don't know. Where we are sending the output?**
 
 If I pick console.log, can you implement it? **Of course.**
 
@@ -122,7 +123,7 @@ buster.testCase("Voice", {
 
     "say calls console.log": function() {
         this.stub(console, "log");
-        voice.say('sup');
+        voice('sup');
         assert.calledWith(console.log, 'sup');
     }
 });
@@ -132,19 +133,17 @@ Does it pass? **No, it outputs an error.**
 ## Test 2 - failing
 Can you make it fail? **Sure**
 ```javascript
-var voice = {
-    say: function () {
-    }
-}
+var voice = function () {
+};
 ```
 Is the message clear? **Yes**
 
 ## Test 2 - passing
 Can you make it pass? **No problem**
 ```javascript
-    say: function (speech) {
-        console.log(speech);
-    }
+var voice = function (speech) {
+    console.log(speech);
+};
 ```
 It everything working now? **Yes**
 
@@ -153,13 +152,15 @@ How do you know it works? **I run all my tests including a manual end to end tes
 Can you show me the entire implementation? **Sure**
 ```javascript
 // test/greeter-test.js
+
 buster.testCase("Greeter", {
 
-    "uses voice to say a greeting": function() {
-        var voice = this.stub({ say: function () {} });
+    "uses voice to greet": function() {
+        var voice = this.stub();
         var greeter = CreateGreeter(voice);
         greeter.greet();
-        assert.called(voice.say);
+        assert.called(voice);
+        assert.match(voice.firstCall.args[0], /Hello/);
     }
 });
 
@@ -167,7 +168,7 @@ buster.testCase("Voice", {
 
     "say calls console.log": function() {
         this.stub(console, "log");
-        voice.say('sup');
+        voice('sup');
         assert.calledWith(console.log, 'sup');
     }
 });
@@ -177,7 +178,7 @@ buster.testCase("Voice", {
 var CreateGreeter = function (voice) {
     return {
         greet: function () {
-            voice.say("Hello, world!");
+            voice("Hello, world!");
         }
     };
 };
@@ -186,7 +187,7 @@ var voice = {
     say: function (speech) {
         console.log(speech);
     }
-}
+};
 ```
 Are you happy with this implementation? **Not quite. Console.log is not viable javascript output.**
 
