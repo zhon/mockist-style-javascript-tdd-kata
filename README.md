@@ -309,3 +309,64 @@ $(function() {
     CreateGreeter(voice).greet()
 });
 ```
+I see it now, but it says the wrong message! **We didn't stub html() in the second test, so it called the real implementation.**
+```javascript
+buster.testCase("Voice", {
+
+    "speaks to the DOM": function() {
+        this.stub(jQuery.prototype, "html");
+        voice('sup');
+        assert.calledWith(jQuery.prototype.html, 'sup');
+    },
+    
+    "shows the voicebox": function() {
+        this.stub(jQuery.prototype, "html");
+        this.stub(jQuery.prototype, "show");
+        voice("howdy, y'all");
+        assert.called(jQuery.prototype.show);
+    }
+});
+```
+## Test 5 (new test case)
+That's better, but the message just kinda hangs out there forever. Can't we make it go away after a while? **Yes, let's add a test for that.**
+```javascript
+buster.testCase("Voice", {
+
+    "speaks to the DOM": function() {
+        this.stub(jQuery.prototype, "html");
+        voice('sup');
+        assert.calledWith(jQuery.prototype.html, 'sup');
+    },
+    
+    "shows the voicebox": function() {
+        this.stub(jQuery.prototype, "html");
+        this.stub(jQuery.prototype, "show");
+        voice("howdy, y'all");
+        assert.called(jQuery.prototype.show);
+    },
+    
+    "hides the voicebox after a few seconds": function() {
+        var clock = this.useFakeTimers();
+        this.stub(jQuery.prototype, "html");
+        this.stub(jQuery.prototype, "show");
+        this.stub(jQuery.prototype, "slideUp");
+        
+        voice("welcome!");
+        refute.called(jQuery.prototype.slideUp);
+        clock.tick(5000)
+        
+        assert.called(jQuery.prototype.slideUp);
+   }
+});
+```
+I noticed that you used "refute.called" **Yes, that ensures that we don't just call slideUp immediately.**
+## Test 5 - failing
+Oh, so I need a setTimeout then? **That is the general idea.**
+```javascript
+var voice = function (speech) {
+    var voiceBox = $("#voiceBox")
+    voiceBox.html(speech);
+    voiceBox.show();
+    setTimeout(function(){ voiceBox.slideUp() }, 5000);
+};
+```
