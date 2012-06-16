@@ -197,3 +197,25 @@ Are you happy with this implementation? **Not quite. Console.log is not viable j
 Where do you want the output to go? **A web page.**
 
 Do we want to manipulate the DOM directly? **Obviously not. That is what jQuery is for.**
+
+Let's update the html to pull in jQuery, add a DOM element to put the greeting in, and add some simple styling to make it stand out:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Welcome to Agile Roots</title>
+    <style type="text/css">
+      .voice { background-color: yellow; padding: 5px; display: none; margin: 10px 0px 10px 0px; }
+    </style>
+  </head>
+  <body>
+    <div id="voiceBox" class="voice"></div>
+    <script type="text/javascript" src="jquery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="buster/buster-test.js"></script>
+    <script type="text/javascript" src="lib/welcome.js"></script>
+    <script type="text/javascript" src="test/welcome-test.js"></script>
+  </body>
+</html>
+```
