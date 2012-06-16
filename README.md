@@ -188,10 +188,8 @@ var CreateGreeter = function (voice) {
     };
 };
 
-var voice = {
-    say: function (speech) {
-        console.log(speech);
-    }
+var voice = function (speech) {
+    console.log(speech);
 };
 ```
 Are you happy with this implementation? **Not quite. Console.log is not viable javascript output.**
