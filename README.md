@@ -123,7 +123,7 @@ Should you write a test first? **Yes, this is a TDD Kata after all.**
 ```javascript
 buster.testCase("Voice", {
 
-    "say calls console.log": function() {
+    "speaks via console.log": function() {
         this.stub(console, "log");
         voice('sup');
         assert.calledWith(console.log, 'sup');
@@ -169,7 +169,7 @@ buster.testCase("Greeter", {
 
 buster.testCase("Voice", {
 
-    "say calls console.log": function() {
+    "speaks via console.log": function() {
         this.stub(console, "log");
         voice('sup');
         assert.calledWith(console.log, 'sup');
@@ -200,7 +200,8 @@ Do we want to manipulate the DOM directly? **Sure, why not?**
 
 Did you forget about IE6 and IE7? ***{shudder}* Let's use jQuery instead.**
 
-That sounds like a much better idea. Now, Let's update the html to pull in jQuery, add a DOM element to put the greeting in, and add some simple styling to make it stand out:
+That sounds like a much better idea. Now, let's update the html to pull in jQuery, 
+add a DOM element to put the greeting in, and add some simple styling to make it stand out:
 
 ```html
 <!DOCTYPE html>
@@ -220,4 +221,83 @@ That sounds like a much better idea. Now, Let's update the html to pull in jQuer
     <script type="text/javascript" src="test/welcome-test.js"></script>
   </body>
 </html>
+```
+## Test 3 (new test case)
+Now that we have a DOM element to stick the output into, shall we change the test? **Yes**
+```javascript
+buster.testCase("Voice", {
+
+    "speaks via console.log": function() {
+        this.stub(console, "log");
+        voice('sup');
+        assert.calledWith(console.log, 'sup');
+    },
+    
+    "speaks to the DOM": function() {
+        this.stub(jQuery.prototype, "html");
+        voice('sup');
+        assert.calledWith(jQuery.prototype.html, 'sup');
+    }
+});
+```
+Does it pass? **No.**
+
+Is the message clear? **Yes.**
+## Test 3 - failing
+Can you make it fail? **Easily.**
+```javascript
+var voice = function (speech) {
+    console.log(speech);
+    $("#voiceBox").html(speech);
+};
+```
+Hey! We're still logging to the console! **We are. Let's remove the test and the code for console now.**
+## Test 3 - clean up
+```javascript
+buster.testCase("Voice", {
+
+    "speaks to the DOM": function() {
+        this.stub(jQuery.prototype, "html");
+        voice('sup');
+        assert.calledWith(jQuery.prototype.html, 'sup');
+    }
+});
+```
+```javascript
+var voice = function (speech) {
+    $("#voiceBox").html(speech);
+};
+```
+I just ran an end to end test and I don't see any output. What gives? **The voiceBox div is hidden. Let's show it now.**
+## Test 4 (new test case)
+```javascript
+buster.testCase("Voice", {
+
+    "speaks to the DOM": function() {
+        this.stub(jQuery.prototype, "html");
+        voice('sup');
+        assert.calledWith(jQuery.prototype.html, 'sup');
+    },
+    
+    "shows the voicebox": function() {
+        this.stub(jQuery.prototype, "show");
+        voice("howdy, y'all");
+        assert.called(jQuery.prototype.show);
+    }
+});
+```
+Can you make this one pass? **I just need to call show.**
+```javascript
+var voice = function (speech) {
+    $("#voiceBox").html(speech);
+    $("#voiceBox").show();
+};
+```
+I see some duplication. Will you clean that up before we move on? **Consider it done.**
+```javascript
+var voice = function (speech) {
+    var voiceBox = $("#voiceBox")
+    voiceBox.html(speech);
+    voiceBox.show();
+};
 ```
