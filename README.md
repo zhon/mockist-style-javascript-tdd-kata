@@ -360,6 +360,8 @@ buster.testCase("Voice", {
 });
 ```
 I noticed that you used "refute.called" **Yes, that ensures that we don't just call slideUp immediately.**
+## Test 5 - failing
+So this one fails the right away with a clear message, right? **Yep.**
 ## Test 5 - passing
 Oh, so I need a setTimeout then? **That is the general idea.**
 ```javascript
