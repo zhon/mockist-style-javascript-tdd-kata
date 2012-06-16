@@ -16,7 +16,9 @@ What is buster? **buster.js is the javascript testing framework we are using for
 
 How do you run the tests? **Open greeter-test.html in Chrome or Firefox (not IE).**
 
-How would you write hello world?
+## Starting
+
+How would you write hello world in javascript?
 ```javascript
 console.log("Hello World!");
 ```
