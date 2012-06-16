@@ -198,4 +198,4 @@ Are you happy with this implementation? **Not quite. Console.log is not viable j
 
 Where do you want the output to go? **A web page.**
 
-[GreeterKataHtmlJS](GreeterKataHtmlJS)
+Do we want to manipulate the DOM directly? **Obviously not. That is what jQuery is for.**
