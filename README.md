@@ -196,9 +196,11 @@ Are you happy with this implementation? **Not quite. Console.log is not viable j
 
 Where do you want the output to go? **A web page.**
 
-Do we want to manipulate the DOM directly? **Obviously not. That is what jQuery is for.**
+Do we want to manipulate the DOM directly? **Sure, why not?**
 
-Let's update the html to pull in jQuery, add a DOM element to put the greeting in, and add some simple styling to make it stand out:
+Did you forget about IE6 and IE7? ***{shudder}* Let's use jQuery instead.**
+
+That sounds like a much better idea. Now, Let's update the html to pull in jQuery, add a DOM element to put the greeting in, and add some simple styling to make it stand out:
 
 ```html
 <!DOCTYPE html>
