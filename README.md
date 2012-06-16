@@ -268,8 +268,8 @@ var voice = function (speech) {
     $("#voiceBox").html(speech);
 };
 ```
-I just ran an end to end test and I don't see any output. What gives? **The voiceBox div is hidden. Let's show it now.**
 ## Test 4 (new test case)
+I just ran an end to end test and I don't see any output. What gives? **The voiceBox div is hidden. Let's show it now.**
 ```javascript
 buster.testCase("Voice", {
 
@@ -286,6 +286,7 @@ buster.testCase("Voice", {
     }
 });
 ```
+## Test 4 - failing
 Can you make this one pass? **I just need to call show.**
 ```javascript
 var voice = function (speech) {
@@ -293,6 +294,7 @@ var voice = function (speech) {
     $("#voiceBox").show();
 };
 ```
+## Test 4 - passing
 I see some duplication. Will you clean that up before we move on? **Consider it done.**
 ```javascript
 var voice = function (speech) {
@@ -300,4 +302,10 @@ var voice = function (speech) {
     voiceBox.html(speech);
     voiceBox.show();
 };
+```
+I still don't see any output. **We need to call the function on page load.**
+```javascript
+$(function() {
+    CreateGreeter(voice).greet()
+});
 ```
