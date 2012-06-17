@@ -54,13 +54,13 @@ Ok, how do you make it pass?
         console.log("Hello, world!");
     }
 ```
-Is our test passing? **Yes**
+Is your test passing? **Yes**
 
 Do you like this implementation? **No**
 
 Why not? **I am logging to the console. Nobody logs to the console.**
 
-Where should our output be going? **I don't know. HTML, stderr, stdout, audio?**
+Where should your output be going? **I don't know. HTML, stderr, stdout, audio?**
 
 ## Test 1 - Refactored
 Can you write your code without specifying where the output will go? **Sure**
