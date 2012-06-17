@@ -19,13 +19,13 @@ How do you run the tests? **Open greeter-test.html in Chrome or Firefox (not IE)
 ## Starting
 
 How would you write hello world in javascript?
-```javascript
+```js
 console.log("Hello World!");
 ```
 ## Test 1
 
 Shouldn't you have written a test first? **Oops, I forgot this was a TDD kata.**
-```javascript
+```js
 buster.testCase("Greeter", {
     "calls console log with hello": function () {
         this.stub(console, "log");
@@ -39,7 +39,7 @@ Is this test failing with an _Error_ or a _Failure_?  **Error! I get ReferenceEr
 
 ## Test 1 - failing
 What can you do to make it fail?
-```javascript
+```js
 var greeter = {
     greet: function () {
     }
@@ -49,7 +49,7 @@ Good, is the message clear? **Yes**
 
 ## Test 1 - passing
 Ok, how do you make it pass?
-```javascript
+```js
     greet: function () {
         console.log("Hello, world!");
     }
@@ -66,7 +66,7 @@ Where should our output be going? **I don't know. HTML, stderr, stdout, audio?**
 Can you write your code without specifying where the output will go? **Sure**
 
 Ok, rewrite the first test.
-```javascript
+```js
 buster.testCase("Greeter", {
 
     "uses voice to greet": function() {
@@ -85,7 +85,7 @@ Is 'erroring' a word? **I don't know, but _erring_ is a word.**
 How do you get to an failure? **Implement CreateGreeter(voice)**
 
 ## Test 1 - failing (again)
-```javascript
+```js
 var CreateGreeter = function (voice) {
     return {
         greet: function () {
@@ -97,7 +97,7 @@ Why didn't you finish the implementation? **I wanted to see the test fail and ch
 
 ## Test 1 - passing(again)
 Is it difficult to make it pass now? **No**
-```javascript
+```js
         greet: function () {
             voice("Hello, world!");
         }
@@ -120,7 +120,7 @@ If I pick console.log, can you implement it? **Of course.**
 
 ## Test 2 (new test case)
 Should you write a test first? **Yes, this is a TDD Kata after all.**
-```javascript
+```js
 buster.testCase("Voice", {
 
     "speaks via console.log": function() {
@@ -134,7 +134,7 @@ Does it pass? **No, it outputs an error.**
 
 ## Test 2 - failing
 Can you make it fail? **Sure**
-```javascript
+```js
 var voice = function () {
 };
 ```
@@ -142,7 +142,7 @@ Is the message clear? **Yes**
 
 ## Test 2 - passing
 Can you make it pass? **No problem**
-```javascript
+```js
 var voice = function (speech) {
     console.log(speech);
 };
@@ -152,7 +152,7 @@ It everything working now? **Yes**
 How do you know it works? **I run all my tests including a manual end to end test.**
 
 Can you show me the entire implementation? **Sure**
-```javascript
+```js
 // test/greeter-test.js
 "use strict";
 
@@ -176,7 +176,7 @@ buster.testCase("Voice", {
     }
 });
 ```
-```javascript
+```js
 // lib/greeter.js
 "use strict";
 
@@ -224,7 +224,7 @@ add a DOM element to put the greeting in, and add some simple styling to make it
 ```
 ## Test 3 (new test case)
 Now that you have a DOM element to stick the output into, will you change the test? **Obviously**
-```javascript
+```js
 buster.testCase("Voice", {
 
     "speaks via console.log": function() {
@@ -245,7 +245,7 @@ Does it pass? **No, it errors.**
 Is the message clear? **Yes.**
 ## Test 3 - failing
 Can you make it fail? **Easily.**
-```javascript
+```js
 var voice = function (speech) {
     console.log(speech);
     $("#voiceBox").html(speech);
@@ -253,7 +253,7 @@ var voice = function (speech) {
 ```
 Hey! you're still logging to the console! **I am removing the test and the code for console logging now.**
 ## Test 3 - clean up
-```javascript
+```js
 buster.testCase("Voice", {
 
     "speaks to the DOM": function() {
@@ -263,14 +263,14 @@ buster.testCase("Voice", {
     }
 });
 ```
-```javascript
+```js
 var voice = function (speech) {
     $("#voiceBox").html(speech);
 };
 ```
 ## Test 4 (new test case)
 I just ran an end to end test and I don't see any output. What gives? **The voiceBox div is hidden. Let's show it now.**
-```javascript
+```js
 buster.testCase("Voice", {
 
     "speaks to the DOM": function() {
@@ -288,7 +288,7 @@ buster.testCase("Voice", {
 ```
 ## Test 4 - failing
 Can you make this one pass? **I just need to call show.**
-```javascript
+```js
 var voice = function (speech) {
     $("#voiceBox").html(speech);
     $("#voiceBox").show();
@@ -296,7 +296,7 @@ var voice = function (speech) {
 ```
 ## Test 4 - passing
 I see some duplication. **I am cleaning that up right now.**
-```javascript
+```js
 var voice = function (speech) {
     var voiceBox = $("#voiceBox")
     voiceBox.html(speech);
@@ -304,13 +304,13 @@ var voice = function (speech) {
 };
 ```
 I still don't see any output. **I need to call the function on page load.**
-```javascript
+```js
 $(function() {
     CreateGreeter(voice).greet()
 });
 ```
 I see it now, but it says the wrong message! **I didn't stub html() in the second test, so it called the real implementation.**
-```javascript
+```js
 buster.testCase("Voice", {
 
     "speaks to the DOM": function() {
@@ -329,7 +329,7 @@ buster.testCase("Voice", {
 ```
 ## Test 5 (new test case)
 That's better, but the message just kinda hangs out there forever. Can you make it go away after a while? **Yes, I am adding a test for that.**
-```javascript
+```js
 buster.testCase("Voice", {
 
     "speaks to the DOM": function() {
@@ -365,7 +365,7 @@ So this one fails the right away with a clear message, right? **Yep.**
 I noticed that you used "refute.called" **Yes, that ensures that I don't just call slideUp immediately.**
 
 Oh, so you will be calling setTimeout? **That is the general idea.**
-```javascript
+```js
 var voice = function (speech) {
     var voiceBox = $("#voiceBox")
     voiceBox.html(speech);
