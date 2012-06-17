@@ -12,7 +12,7 @@ Where are the unit tests and code on the file system? **The code is structured a
 * **Tests are in test/greeter-test.js**
 * **Application code is in lib/greeter.js**
 
-What is buster? **buster.js is the javascript testing framework we are using for this kata.**
+What is buster? **buster.js is the javascript testing framework I am using for this kata.**
 
 How do you run the tests? **Open greeter-test.html in Chrome or Firefox (not IE).**
 
@@ -38,7 +38,7 @@ buster.testCase("Greeter", {
 Is this test failing with an _Error_ or a _Failure_?  **Error! I get ReferenceError: greeter is not defined**
 
 ## Test 1 - failing
-What can we do to make it fail?
+What can you do to make it fail?
 ```javascript
 var greeter = {
     greet: function () {
@@ -48,7 +48,7 @@ var greeter = {
 Good, is the message clear? **Yes**
 
 ## Test 1 - passing
-Ok, how do we make it pass?
+Ok, how do you make it pass?
 ```javascript
     greet: function () {
         console.log("Hello, world!");
@@ -58,12 +58,12 @@ Is our test passing? **Yes**
 
 Do you like this implementation? **No**
 
-Why not? **We are logging to the console. Nobody logs to the console.**
+Why not? **I am logging to the console. Nobody logs to the console.**
 
 Where should our output be going? **I don't know. HTML, stderr, stdout, audio?**
 
 ## Test 1 - Refactored
-Can we write our code without specifying where the output will go? **Sure**
+Can you write your code without specifying where the output will go? **Sure**
 
 Ok, rewrite the first test.
 ```javascript
@@ -82,7 +82,7 @@ Is this test _erroring_ or _failing_? **Erroring**
 
 Is 'erroring' a word? **I don't know, but _erring_ is a word.**
 
-How do we get to an failure? **Implement CreateGreeter(voice)**
+How do you get to an failure? **Implement CreateGreeter(voice)**
 
 ## Test 1 - failing (again)
 ```javascript
@@ -102,11 +102,11 @@ Is it difficult to make it pass now? **No**
             voice("Hello, world!");
         }
 ```
-Are we done? **No**
+Are you done? **No**
 
 Why not? **It doesn't do anything!**
 
-How do we know it doesn't do anything? **If we run it, it does nothing.**
+How do you know it doesn't do anything? **If I run it, it does nothing.**
 
 For simple things, is manually running an end to end test sufficient? **Yes**
 
@@ -114,7 +114,7 @@ Ok, run it! **Like I said, it didn't do anything!**
 
 How do you make it do something? **Implement voice**
 
-How do you implement voice? **I don't know. Where we are sending the output?**
+How do you implement voice? **I don't know. Where should I send the output?**
 
 If I pick console.log, can you implement it? **Of course.**
 
@@ -196,9 +196,9 @@ Are you happy with this implementation? **Not quite. Console.log is not viable j
 
 Where do you want the output to go? **A web page.**
 
-Do we want to manipulate the DOM directly? **Sure, why not?**
+Do you want to manipulate the DOM directly? **Sure, why not?**
 
-Did you forget about IE6 and IE7? ***{shudder}* Let's use jQuery instead.**
+Did you forget about IE6 and IE7? ***{shudder}* I better use jQuery instead.**
 
 That sounds like a much better idea. Now, let's update the html to pull in jQuery, 
 add a DOM element to put the greeting in, and add some simple styling to make it stand out:
@@ -223,7 +223,7 @@ add a DOM element to put the greeting in, and add some simple styling to make it
 </html>
 ```
 ## Test 3 (new test case)
-Now that we have a DOM element to stick the output into, shall we change the test? **Yes**
+Now that you have a DOM element to stick the output into, will you change the test? **Obviously**
 ```javascript
 buster.testCase("Voice", {
 
@@ -232,7 +232,7 @@ buster.testCase("Voice", {
         voice('sup');
         assert.calledWith(console.log, 'sup');
     },
-    
+
     "speaks to the DOM": function() {
         this.stub(jQuery.prototype, "html");
         voice('sup');
@@ -240,7 +240,7 @@ buster.testCase("Voice", {
     }
 });
 ```
-Does it pass? **No.**
+Does it pass? **No, it errors.**
 
 Is the message clear? **Yes.**
 ## Test 3 - failing
@@ -251,7 +251,7 @@ var voice = function (speech) {
     $("#voiceBox").html(speech);
 };
 ```
-Hey! We're still logging to the console! **We are. Let's remove the test and the code for console now.**
+Hey! you're still logging to the console! **I am removing the test and the code for console logging now.**
 ## Test 3 - clean up
 ```javascript
 buster.testCase("Voice", {
@@ -295,7 +295,7 @@ var voice = function (speech) {
 };
 ```
 ## Test 4 - passing
-I see some duplication. Will you clean that up before we move on? **Consider it done.**
+I see some duplication. **I am cleaning that up right now.**
 ```javascript
 var voice = function (speech) {
     var voiceBox = $("#voiceBox")
@@ -303,13 +303,13 @@ var voice = function (speech) {
     voiceBox.show();
 };
 ```
-I still don't see any output. **We need to call the function on page load.**
+I still don't see any output. **I need to call the function on page load.**
 ```javascript
 $(function() {
     CreateGreeter(voice).greet()
 });
 ```
-I see it now, but it says the wrong message! **We didn't stub html() in the second test, so it called the real implementation.**
+I see it now, but it says the wrong message! **I didn't stub html() in the second test, so it called the real implementation.**
 ```javascript
 buster.testCase("Voice", {
 
@@ -318,7 +318,7 @@ buster.testCase("Voice", {
         voice('sup');
         assert.calledWith(jQuery.prototype.html, 'sup');
     },
-    
+
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "html");
         this.stub(jQuery.prototype, "show");
@@ -328,7 +328,7 @@ buster.testCase("Voice", {
 });
 ```
 ## Test 5 (new test case)
-That's better, but the message just kinda hangs out there forever. Can't we make it go away after a while? **Yes, let's add a test for that.**
+That's better, but the message just kinda hangs out there forever. Can you make it go away after a while? **Yes, I am adding a test for that.**
 ```javascript
 buster.testCase("Voice", {
 
@@ -337,24 +337,24 @@ buster.testCase("Voice", {
         voice('sup');
         assert.calledWith(jQuery.prototype.html, 'sup');
     },
-    
+
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "html");
         this.stub(jQuery.prototype, "show");
         voice("howdy, y'all");
         assert.called(jQuery.prototype.show);
     },
-    
+
     "hides the voicebox after a few seconds": function() {
         var clock = this.useFakeTimers();
         this.stub(jQuery.prototype, "html");
         this.stub(jQuery.prototype, "show");
         this.stub(jQuery.prototype, "slideUp");
-        
+
         voice("welcome!");
         refute.called(jQuery.prototype.slideUp);
         clock.tick(5000)
-        
+
         assert.called(jQuery.prototype.slideUp);
    }
 });
@@ -362,9 +362,9 @@ buster.testCase("Voice", {
 ## Test 5 - failing
 So this one fails the right away with a clear message, right? **Yep.**
 ## Test 5 - passing
-I noticed that you used "refute.called" **Yes, that ensures that we don't just call slideUp immediately.**
+I noticed that you used "refute.called" **Yes, that ensures that I don't just call slideUp immediately.**
 
-Oh, so I need a setTimeout then? **That is the general idea.**
+Oh, so you will be calling setTimeout? **That is the general idea.**
 ```javascript
 var voice = function (speech) {
     var voiceBox = $("#voiceBox")
