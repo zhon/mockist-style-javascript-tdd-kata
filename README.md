@@ -200,15 +200,17 @@ Do you want to manipulate the DOM directly? **Sure, why not?**
 
 Did you forget about IE6 and IE7? ***{shudder}* I better use jQuery instead.**
 
-What are you doing now? **I am updating the html with jQuery, adding a place to put the greeting, 
-and adding some simple styling.**
+What are you doing now? **I am updating the html with**
+* **some simple styling**
+* **a place to hold the greeting**
+* **jQuery**
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Welcome to Agile Roots</title>
+    <title>Greeter</title>
     <style type="text/css">
       .voice { background-color: yellow; padding: 5px; display: none; margin: 10px 0px 10px 0px; }
     </style>
@@ -217,12 +219,12 @@ and adding some simple styling.**
     <div id="voiceBox" class="voice"></div>
     <script type="text/javascript" src="vendor/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="vendor/buster-test.js"></script>
-    <script type="text/javascript" src="lib/welcome.js"></script>
-    <script type="text/javascript" src="test/welcome-test.js"></script>
+    <script type="text/javascript" src="lib/greeter.js"></script>
+    <script type="text/javascript" src="test/greeter-test.js"></script>
   </body>
 </html>
 ```
-## Test 3 (new test case)
+## Test 3
 Now that you have a DOM element to stick the output into, will you change the test? **Obviously**
 ```js
 buster.testCase("Voice", {
