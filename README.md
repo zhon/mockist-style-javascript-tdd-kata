@@ -109,7 +109,7 @@ Are you done? **No**
 Why not? **It doesn't do anything!**
 
 How do you know it doesn't do anything? **If I run it, it does nothing.**
-# End to End Test
+## End to End Test
 How do you run it? **I add the following to the bottom of greeter.js and check the browser  and browser console (F12).**
 ```js
 $(function() {
@@ -306,6 +306,7 @@ var voice = function (speech) {
 ```
 ## End to End Test
 I still don't see any output. **I will call greet() when the page loads.**
+
 Where are you putting this call? **greeter.js.**
 ```js
 $(function() {
