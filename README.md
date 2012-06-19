@@ -295,21 +295,19 @@ var voice = function (speech) {
     voiceBox.show();
 };
 ```
-I still don't see any output. **I need to call the function on page load.**
+## End to End Test
+I still don't see any output. **I will call greet() when the page loads.**
+Where are you putting this call? **greeter.js.**
 ```js
 $(function() {
     CreateGreeter(voice).greet()
 });
 ```
-I see it now, but it says the wrong message! **I didn't stub html() in the second test, so it called the real implementation.**
+Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That remindes me, I need to stub html() in all the voice tests.**
 ```js
 buster.testCase("Voice", {
 
-    "speaks to the DOM": function() {
-        this.stub(jQuery.prototype, "html");
-        voice('sup');
-        assert.calledWith(jQuery.prototype.html, 'sup');
-    },
+    ...
 
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "html");
