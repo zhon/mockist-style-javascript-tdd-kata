@@ -209,8 +209,7 @@ What are you doing now? **I am updating the html with**
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=utf-8">
-        <title>Greeter</title>
+        ...
         <style type="text/css">
             .voice { background-color: yellow; padding: 5px; display: none; margin: 10px 0px 10px 0px; }
         </style>
@@ -218,9 +217,7 @@ What are you doing now? **I am updating the html with**
     <body>
         <div id="voiceBox" class="voice"></div>
         <script type="text/javascript" src="vendor/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript" src="vendor/buster-test.js"></script>
-        <script type="text/javascript" src="lib/greeter.js"></script>
-        <script type="text/javascript" src="test/greeter-test.js"></script>
+        ...
     </body>
 </html>
 ```
@@ -229,11 +226,8 @@ Now that you have a DOM element to stick the output into, will you change the te
 ```js
 buster.testCase("Voice", {
 
-    "speaks via console.log": function() {
-        this.stub(console, "log");
-        voice('sup');
-        assert.calledWith(console.log, 'sup');
-    },
+    ...
+    ,
 
     "speaks to the DOM": function() {
         this.stub(jQuery.prototype, "html");
@@ -242,11 +236,11 @@ buster.testCase("Voice", {
     }
 });
 ```
-Does it pass? **No, it errors.**
+Does it pass? **No, it failing. Notice I didn't forget my comma :)**
 
 Is the message clear? **Yes.**
-## Test 3 - failing
-Can you make it fail? **Easily.**
+## Test 3 - passing
+Can you make it pass? **Easily.**
 ```js
 var voice = function (speech) {
     console.log(speech);
