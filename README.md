@@ -264,17 +264,13 @@ var voice = function (speech) {
     $("#voiceBox").html(speech);
 };
 ```
-## Test 4 (new test case)
-I just ran an end to end test and I don't see any output. What gives? **The voiceBox div is hidden. Let's show it now.**
+## Test 4
+I just ran an end to end test and I don't see any output. What gives? **The voiceBox div is hidden. I will show it now.**
 ```js
 buster.testCase("Voice", {
 
-    "speaks to the DOM": function() {
-        this.stub(jQuery.prototype, "html");
-        voice('sup');
-        assert.calledWith(jQuery.prototype.html, 'sup');
-    },
-    
+    ...
+
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "show");
         voice("howdy, y'all");
@@ -282,7 +278,7 @@ buster.testCase("Voice", {
     }
 });
 ```
-## Test 4 - failing
+## Test 4 - passing
 Can you make this one pass? **I just need to call show.**
 ```js
 var voice = function (speech) {
@@ -290,7 +286,7 @@ var voice = function (speech) {
     $("#voiceBox").show();
 };
 ```
-## Test 4 - passing
+## Test 4 - refactor
 I see some duplication. **I am cleaning that up right now.**
 ```js
 var voice = function (speech) {
