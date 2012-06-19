@@ -16,6 +16,8 @@ What is buster? **buster.js is the javascript testing framework I am using for t
 
 How do you run the tests? **Open greeter-test.html in Chrome or Firefox (not IE).**
 
+How do you run the application? **Open greeter-test.html. A build script strips out all the testing for production. I won't show you that in this kata.**
+
 ## Starting
 
 How would you write hello world in javascript?
