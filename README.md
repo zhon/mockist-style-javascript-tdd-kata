@@ -311,9 +311,7 @@ buster.testCase("Voice", {
 
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "html");
-        this.stub(jQuery.prototype, "show");
-        voice("howdy, y'all");
-        assert.called(jQuery.prototype.show);
+        ...
     }
 });
 ```
@@ -325,12 +323,12 @@ buster.testCase("Voice", {
     ...
 
     "hides the voicebox after a few seconds": function() {
-        var clock = this.useFakeTimers();
         this.stub(jQuery.prototype, "html");
         this.stub(jQuery.prototype, "show");
         this.stub(jQuery.prototype, "slideUp");
+        var clock = this.useFakeTimers();
 
-        voice("welcome!");
+        voice("goodby");
         refute.called(jQuery.prototype.slideUp);
         clock.tick(5000)
 
