@@ -107,6 +107,15 @@ Are you done? **No**
 Why not? **It doesn't do anything!**
 
 How do you know it doesn't do anything? **If I run it, it does nothing.**
+# End to End Test
+How do you run it? **I add the following to the bottom of greeter.js and check the browser  and browser console (F12).**
+```js
+$(function() {
+    CreateGreeter(voice).greet()
+});
+```
+
+You are using the test HTML as your final HTML? **Yes, I will run it through a build system which will strip out the testing.**
 
 For simple things, is manually running an end to end test sufficient? **Yes**
 
@@ -203,7 +212,6 @@ Did you forget about IE6 and IE7? ***{shudder}* I better use jQuery instead.**
 What are you doing now? **I am updating the html with**
 * **some simple styling**
 * **a place to hold the greeting**
-* **jQuery**
 
 ```html
 <!DOCTYPE html>
@@ -216,7 +224,6 @@ What are you doing now? **I am updating the html with**
     </head>
     <body>
         <div id="voiceBox" class="voice"></div>
-        <script type="text/javascript" src="vendor/jquery-1.7.2.min.js"></script>
         ...
     </body>
 </html>
