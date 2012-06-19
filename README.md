@@ -62,7 +62,7 @@ Why not? **I am logging to the console. Nobody logs to the console.**
 
 Where should your output be going? **I don't know. HTML, stderr, stdout, audio?**
 
-## Test 1 - Refactored
+## Test 1 - refactor
 Can you write your code without specifying where the output will go? **Sure**
 
 Ok, rewrite the first test.
@@ -317,23 +317,12 @@ buster.testCase("Voice", {
     }
 });
 ```
-## Test 5 (new test case)
+## Test 5
 That's better, but the message just kinda hangs out there forever. Can you make it go away after a while? **Yes, I am adding a test for that.**
 ```js
 buster.testCase("Voice", {
 
-    "speaks to the DOM": function() {
-        this.stub(jQuery.prototype, "html");
-        voice('sup');
-        assert.calledWith(jQuery.prototype.html, 'sup');
-    },
-
-    "shows the voicebox": function() {
-        this.stub(jQuery.prototype, "html");
-        this.stub(jQuery.prototype, "show");
-        voice("howdy, y'all");
-        assert.called(jQuery.prototype.show);
-    },
+    ...
 
     "hides the voicebox after a few seconds": function() {
         var clock = this.useFakeTimers();
@@ -357,9 +346,7 @@ I noticed that you used "refute.called" **Yes, that ensures that I don't just ca
 Oh, so you will be calling setTimeout? **That is the general idea.**
 ```js
 var voice = function (speech) {
-    var voiceBox = $("#voiceBox")
-    voiceBox.html(speech);
-    voiceBox.show();
+    ...
     setTimeout(function(){ voiceBox.slideUp() }, 5000);
 };
 ```
