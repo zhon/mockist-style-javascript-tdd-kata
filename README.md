@@ -407,3 +407,33 @@ var CreateGreeter = function (voice) {
     };
 };
 ```
+## Test 8
+Were does the wisdom come from? **A guru.**
+```js
+buster.testCase("Greeter", {
+    ...
+
+    "pontificates guru wisdom": function() {
+        var voice = this.stub();
+        var guru = this.stub();
+        var greeter = CreateGreeter(voice, guru);
+        greeter.pontificate();
+        assert.called(guru);
+    }
+
+});
+```
+How are you going to make this pass? **I am passing in a guru to CreateGreater with a default so I don't have to change any other tests now.**
+```js
+var CreateGreeter = function (voice, guru) {
+    return {
+        guru: guru || function() {},
+
+        ...
+
+        pontificate: function () {
+            voice(this.name + ',' + this.guru());
+        }
+    };
+};
+```
