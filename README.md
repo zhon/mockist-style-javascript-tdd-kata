@@ -2,7 +2,7 @@
 
 I hear you want to learn mockist/interaction/London style test driven development? **I do! I do!**
 
-What app do you want to build? **A greeting bot. Something that flashes weird greetings every so often.**
+What app do you want to build? **A wisdom sharing greeting bot.**
 
 How are you going end to end test it? **I think manually testing it will be sufficient.**
 
@@ -348,5 +348,64 @@ Oh, so you will be calling setTimeout? **That is the general idea.**
 var voice = function (speech) {
     ...
     setTimeout(function(){ voiceBox.slideUp() }, 5000);
+};
+```
+## Test 6
+The greeting feels a little impersonal. **I will add a name.**
+```js
+buster.testCase("Greeter", {
+    ...
+
+    "greets a person": function() {
+        var voice = this.stub();
+        var greeter = CreateGreeter(voice);
+        greeter.greet("Bob");
+        assert.called(voice);
+        assert.match(voice.firstCall.args[0], /Bob/);
+    }
+
+});
+```
+## Test 6 - passing
+```js
+var CreateGreeter = function (voice) {
+    return {
+        greet: function (name) {
+            voice("Hello, " + name + "!");
+        }
+    };
+};
+```
+I notice the End to End test is failing to show 'World'. **Yes, and I would fix it in production code.**
+
+## Test 7
+What now? **Now we seek wisdom.**
+```js
+buster.testCase("Greeter", {
+    ...
+
+   "sends a pearl of wisdom": function () {
+        var voice = this.stub();
+        var greeter = CreateGreeter(voice);
+        greeter.greet("Kent");
+        greeter.pontificate();
+        assert.calledTwice(voice);
+        assert.match(voice.secondCall.args[0], /Kent/);
+    }
+
+});
+```
+How come you didn't check the wisdom? **I haven't been enlighted. Here is what I do know:**
+```js
+var CreateGreeter = function (voice) {
+    return {
+        greet: function (name) {
+            voice("Hello, " + name + "!");
+            this.name = name;
+        },
+        pontificate: function () {
+            voice(this.name);
+        }
+    };
 };
 ```
