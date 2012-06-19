@@ -208,20 +208,20 @@ What are you doing now? **I am updating the html with**
 ```html
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <title>Greeter</title>
-    <style type="text/css">
-      .voice { background-color: yellow; padding: 5px; display: none; margin: 10px 0px 10px 0px; }
-    </style>
-  </head>
-  <body>
-    <div id="voiceBox" class="voice"></div>
-    <script type="text/javascript" src="vendor/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="vendor/buster-test.js"></script>
-    <script type="text/javascript" src="lib/greeter.js"></script>
-    <script type="text/javascript" src="test/greeter-test.js"></script>
-  </body>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <title>Greeter</title>
+        <style type="text/css">
+            .voice { background-color: yellow; padding: 5px; display: none; margin: 10px 0px 10px 0px; }
+        </style>
+    </head>
+    <body>
+        <div id="voiceBox" class="voice"></div>
+        <script type="text/javascript" src="vendor/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="vendor/buster-test.js"></script>
+        <script type="text/javascript" src="lib/greeter.js"></script>
+        <script type="text/javascript" src="test/greeter-test.js"></script>
+    </body>
 </html>
 ```
 ## Test 3
