@@ -200,8 +200,8 @@ Do you want to manipulate the DOM directly? **Sure, why not?**
 
 Did you forget about IE6 and IE7? ***{shudder}* I better use jQuery instead.**
 
-That sounds like a much better idea. Now, let's update the html to pull in jQuery, 
-add a DOM element to put the greeting in, and add some simple styling to make it stand out:
+What are you doing now? **I am updating the html with jQuery, adding a place to put the greeting, 
+and adding some simple styling.**
 
 ```html
 <!DOCTYPE html>
@@ -215,8 +215,8 @@ add a DOM element to put the greeting in, and add some simple styling to make it
   </head>
   <body>
     <div id="voiceBox" class="voice"></div>
-    <script type="text/javascript" src="jquery/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="buster/buster-test.js"></script>
+    <script type="text/javascript" src="vendor/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="vendor/buster-test.js"></script>
     <script type="text/javascript" src="lib/welcome.js"></script>
     <script type="text/javascript" src="test/welcome-test.js"></script>
   </body>
