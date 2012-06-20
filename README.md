@@ -509,7 +509,34 @@ var CreateGreeter = function (voice, guru, ear) {
 });
 
 ```
+## Test 11 (new test case)
 
+```js
+buster.testCase("Ear", {
 
+    "notifies after hearing something": function(done) {
+        var callback = this.spy(function() {
+            assert.equals(typeof string, "string");
+            done();
+        });
+        ear(callback);
+        assert.called(callback);
+    }
 
+});
+```
+Why are you using a spy. **Spys allow asserts without changing the behavior of function it is spying on.**
+
+## Test 11 - passing
+
+```
+var ear = function (callback) {
+    callback("Bob");
+}
+```
+
+    // "hears a person's name and greets them": function () {
+
+TODO: Get the name and hook it up and we are done!
+I think we should get the greetee's name earlier.
 
