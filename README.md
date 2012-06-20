@@ -447,3 +447,43 @@ var CreateGreeter = function (voice, guru) {
     };
 };
 ```
+## Test 9 (new test case)
+What are you missing? **I need the greetee's name and guru's wisdom.**
+
+Which one first? **I am intersted in enlightment.**
+```js
+buster.testCase("Guru", {
+
+    "consults the scroll of wisdom": function(done) {
+        guru(function(wisdom) {
+            assertEquals(typeof wisdom, string);
+            done();
+        });
+    }
+
+});
+```
+Is the test erroring or failing? **Neither, it is timing out.**
+
+How do you fix it? **I implement guru with a callback.**
+
+var guru = function (callback) {
+    var index;
+    if (typeof(wisdom.index) == 'undefined' || wisdom.index == wisdom.length) {
+        wisdom.index = 0;
+    }
+
+    callback(wisdom[wisdom.index++]);
+}
+
+You didn't test wisdom.index. **Normally I would, just not for this kata.**
+
+What now? **Before we hook up guru and the greeter, I would like to get the greetee's name.**
+
+
+
+
+
+
+
+
