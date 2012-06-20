@@ -480,6 +480,22 @@ You didn't test wisdom.index. **Normally I would, just not for this kata.**
 
 What now? **Before we hook up guru and the greeter, I would like to get the greetee's name.**
 
+## Test 10 (new test case)
+```js
+buster.testCase("Ear", {
+
+    "listens for the greetee's name": function(done) {
+        var greeter = this.stub
+        ear(function () {
+            done();
+        });
+    }
+
+});
+```
+
+TODO: Get the name and hook it up and we are done!
+I think we should get the greetee's name earlier.
 
 
 
