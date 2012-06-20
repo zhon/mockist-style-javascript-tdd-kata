@@ -604,6 +604,39 @@ buster.testCase("Ear", {
 });
 ```
 ## End to End Working
+```js
+
+var CreateGreeter = function (voice, guru, ear) {
+    return {
+        ...
+
+        listen: function () {
+            var self = this;
+            ear(function (name) {
+              self.greet(name);
+            });
+        },
+
+        ...
+
+        pontificate: function () {
+            var self = this;
+            this.guru(function (wisdom) {
+                voice(self.name + ', ' + wisdom);
+            });
+        }
+    };
+});
+
+...
+
+$(function() {
+    var greeter = CreateGreeter(voice, guru, ear)
+    greeter.listen();
+    setInterval(greeter.pontificate.bind(greeter), 7000);
+});
+```
+
 
 
 
