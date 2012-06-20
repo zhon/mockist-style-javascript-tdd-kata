@@ -3,8 +3,19 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8">
         <title>Greetings Agile Roots</title>
+        <style type="text/css">
+            .voice { background-color: yellow; padding: 5px; display: none; margin: 10px 0px 10px 0px; }
+            .ear { background-color: yellow; padding: 5px; display: none; margin: 10px 0px 10px 0px; }
+        </style>
     </head>
     <body>
+        <div id="earBox" class="ear">
+            <form>
+                <span>What can I call you?</span>
+                <input id="input" type="text">
+            </form>
+        </div>
+        <div id="voiceBox" class="voice"></div>
         <script type="text/javascript" src="vendor/jquery-1.7.2.min.js"></script>
         <script type="text/javascript" src="lib/wisdom.js"></script>
         <script type="text/javascript" src="lib/greeter.js"></script>
