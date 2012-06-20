@@ -454,7 +454,7 @@ Which one first? **I am intersted in enlightment.**
 ```js
 buster.testCase("Guru", {
 
-    "consults the scroll of wisdom": function(done) {
+    "shares wisdom in a callback": function(done) {
         guru(function(wisdom) {
             assertEquals(typeof wisdom, string);
             done();
@@ -468,7 +468,6 @@ Is the test erroring or failing? **Neither, it is timing out.**
 How do you fix it? **I implement guru with a callback.**
 
 var guru = function (callback) {
-    var index;
     if (typeof(wisdom.index) == 'undefined' || wisdom.index == wisdom.length) {
         wisdom.index = 0;
     }
@@ -476,29 +475,40 @@ var guru = function (callback) {
     callback(wisdom[wisdom.index++]);
 }
 
-You didn't test wisdom.index. **Normally I would, just not for this kata.**
+You didn't test wisdom.index. **Normally I would, just not in this kata.**
 
-What now? **Before we hook up guru and the greeter, I would like to get the greetee's name.**
+What now? **Before we connect guru and greeter, I would like to get the greetee's name.**
 
-## Test 10 (new test case)
+## Test 10
 ```js
-buster.testCase("Ear", {
+buster.testCase("Greeter", {
 
-    "listens for the greetee's name": function(done) {
-        var greeter = this.stub
-        ear(function () {
-            done();
-        });
+    ...
+
+    "listens with an ear": function () {
+        var ear = this.stub();
+        var greeter = CreateGreeter(null, null, ear);
+        greeter.listen();
+        assert.called(ear);
     }
 
 });
 ```
+## Test 10 - passing
+```js
+var CreateGreeter = function (voice, guru, ear) {
+    return {
+        ...
 
-TODO: Get the name and hook it up and we are done!
-I think we should get the greetee's name earlier.
+        listen: function () {
+            ear();
+        },
 
+        ...
+    };
+});
 
-
+```
 
 
 
