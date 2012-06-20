@@ -211,27 +211,8 @@ Do you want to manipulate the DOM directly? **Sure, why not?**
 
 Did you forget about IE6 and IE7? ***{shudder}* I better use jQuery instead.**
 
-What are you doing now? **I am updating the html with**
-* **some simple styling**
-* **a place to hold the greeting**
-
-```html
-<!DOCTYPE html>
-<html>
-    <head>
-        ...
-        <style type="text/css">
-            .voice { background-color: yellow; padding: 5px; display: none; margin: 10px 0px 10px 0px; }
-        </style>
-    </head>
-    <body>
-        <div id="voiceBox" class="voice"></div>
-        ...
-    </body>
-</html>
-```
 ## Test 3
-Now that you have a DOM element to stick the output into, will you change the test? **Obviously**
+Now that you have a DOM element for your output, will you change the test? **Obviously**
 ```js
 buster.testCase("Voice", {
 
@@ -307,7 +288,7 @@ var voice = function (speech) {
 ## End to End Test
 I still don't see any output. **I will call greet() when the page loads.**
 
-Where are you putting this call? **greeter.js.**
+Where are you putting this call? **At the bottom of greeter.js.**
 ```js
 $(function() {
     CreateGreeter(voice).greet()
@@ -636,7 +617,3 @@ $(function() {
     setInterval(greeter.pontificate.bind(greeter), 7000);
 });
 ```
-
-
-
-
