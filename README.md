@@ -113,7 +113,7 @@ Why not? **It doesn't do anything!**
 
 How do you know it doesn't do anything? **If I run it, it does nothing.**
 ## End to End Test
-How do you run it? **I add the following to the bottom of greeter.js and check the browser  and browser console (F12).**
+How do you run it? **I add the following to the bottom of greeter.js and check the browser and browser console (F12).**
 ```js
 $(function() {
     CreateGreeter(voice).greet()
@@ -232,7 +232,7 @@ buster.testCase("Voice", {
 
 });
 ```
-Does it pass? **No, it failing. Notice I didn't forget my comma :)**
+Does it pass? **No, it is failing. Notice I didn't forget my comma :)**
 
 Is the message clear? **Yes.**
 ## Test 3 - passing
