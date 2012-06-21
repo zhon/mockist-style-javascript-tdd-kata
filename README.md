@@ -369,9 +369,130 @@ var CreateGreeter = function (voice) {
 ```
 I notice the End to End test is failing to show 'World'. **Yes, and I would fix it in production code.**
 
-# TODO let get the input for the name.
+What now? **I would like to get the greetee's name.**
 
 ## Test 7
+```js
+buster.testCase("Greeter", {
+
+    ...
+    ,
+    "listens with an ear": function () {
+        var ear = this.stub();
+        var greeter = CreateGreeter(null, ear);
+        greeter.listen();
+        assert.called(ear);
+    }
+
+});
+```
+## Test 7 - passing
+```js
+var CreateGreeter = function (voice, ear) {
+    return {
+        ...
+
+        listen: function () {
+            ear();
+        },
+
+        ...
+    };
+});
+
+```
+## Test 8 (new test case)
+```js
+buster.testCase("Ear", {
+
+    "notifies after hearing something": function(done) {
+        var callback = this.spy(function() {
+            assert.equals(typeof string, "string");
+            done();
+        });
+        ear(callback);
+        assert.called(callback);
+    }
+
+});
+```
+Why are you using a spy. **Spys allow asserts without changing the behavior of function it is spying on.**
+
+## Test 8 - passing
+```js
+var ear = function (callback) {
+    callback("Bob");
+}
+```
+
+## Test 9
+```js
+buster.testCase("Ear", {
+
+    ...
+    ,
+    "shows the earBox": function() {
+        this.stub(jQuery.prototype, "show");
+        ear(this.stub());
+        assert.called(jQuery.prototype.show);
+    }
+
+});
+```
+## Test 9 - passing
+```js
+var ear = function (callback) {
+    var earBox = $("#earBox")
+    earBox.show();
+    callback("Bob");
+}
+```
+Why is the earBox showing up? **I need to stub jQuery.show in all the Ear tests.**
+```js
+buster.testCase("Ear", {
+
+    "calls callback after hearing something": function(done) {
+        this.stub(jQuery.prototype, "show");
+
+    ...
+
+});
+```
+## Test 10
+```js
+buster.testCase("Ear", {
+
+    ...
+    ,
+    "watches for a submit event": function () {
+        this.stub(jQuery.prototype, "show");
+        this.stub(jQuery.prototype, "submit");
+        ear(this.stub());
+        assert.called(jQuery.prototype.submit);
+    }
+
+});
+```
+## Test 10 - passing
+```js
+var ear = function (callback) {
+    ...
+    earBox.submit(function () {
+        callback($("#input").val());
+        earBox.hide();
+        return false;
+    })
+}
+```
+You noticed a test suddenly failed? **I know, I just don't want to fix that test right now. I will defer it.**
+```js
+buster.testCase("Ear", {
+
+    "//calls callback after hearing something": function(done) {
+    ...
+});
+```
+## Test 11
 What now? **Now we seek wisdom.**
 ```js
 buster.testCase("Greeter", {
@@ -379,7 +500,8 @@ buster.testCase("Greeter", {
     ,
    "sends a pearl of wisdom": function () {
         var voice = this.stub();
-        var greeter = CreateGreeter(voice);
+        var ear = this.stub();
+        var greeter = CreateGreeter(voice, ear);
         greeter.greet("Kent");
         greeter.pontificate();
         assert.calledTwice(voice);
@@ -390,7 +512,7 @@ buster.testCase("Greeter", {
 ```
 How come you didn't check the wisdom? **I haven't been enlighted. Here is what I do know:**
 ```js
-var CreateGreeter = function (voice) {
+var CreateGreeter = function (voice, ear) {
     return {
         greet: function (name) {
             voice("Hello, " + name + "!");
@@ -402,7 +524,7 @@ var CreateGreeter = function (voice) {
     };
 };
 ```
-## Test 8
+## Test 12
 Were does the wisdom come from? **A guru.**
 ```js
 buster.testCase("Greeter", {
@@ -410,15 +532,16 @@ buster.testCase("Greeter", {
     ,
     "pontificates guru wisdom": function() {
         var voice = this.stub();
+        var ear = this.stub();
         var guru = this.stub();
-        var greeter = CreateGreeter(voice, guru);
+        var greeter = CreateGreeter(voice, ear, guru);
         greeter.pontificate();
         assert.called(guru);
     }
 
 });
 ```
-How are you going to make this pass? **I am passing in a guru to CreateGreater with a default so I don't have to change any other tests now.**
+How are you going to make this pass? **I am passing in a guru to CreateGreeter with a default so I don't have to change any other tests now.**
 ```js
 var CreateGreeter = function (voice, guru) {
     return {
@@ -432,10 +555,9 @@ var CreateGreeter = function (voice, guru) {
     };
 };
 ```
-## Test 9 (new test case)
-What are you missing? **I need the greetee's name and guru's wisdom.**
+## Test 14 (new test case)
+What are you missing? **I need the guru's wisdom.**
 
-Which one first? **I am intersted in enlightment.**
 ```js
 buster.testCase("Guru", {
 
@@ -462,131 +584,6 @@ var guru = function (callback) {
 
 You didn't test wisdom.index. **Normally I would, just not in this kata.**
 
-What now? **Before we connect guru and greeter, I would like to get the greetee's name.**
-
-## Test 10
-```js
-buster.testCase("Greeter", {
-
-    ...
-    ,
-    "listens with an ear": function () {
-        var ear = this.stub();
-        var greeter = CreateGreeter(null, null, ear);
-        greeter.listen();
-        assert.called(ear);
-    }
-
-});
-```
-## Test 10 - passing
-```js
-var CreateGreeter = function (voice, guru, ear) {
-    return {
-        ...
-
-        listen: function () {
-            ear();
-        },
-
-        ...
-    };
-});
-
-```
-## Test 11 (new test case)
-
-```js
-buster.testCase("Ear", {
-
-    "notifies after hearing something": function(done) {
-        var callback = this.spy(function() {
-            assert.equals(typeof string, "string");
-            done();
-        });
-        ear(callback);
-        assert.called(callback);
-    }
-
-});
-```
-Why are you using a spy. **Spys allow asserts without changing the behavior of function it is spying on.**
-
-## Test 11 - passing
-
-```
-var ear = function (callback) {
-    callback("Bob");
-}
-```
-
-## Test 12
-```js
-buster.testCase("Ear", {
-
-    ...
-    ,
-    "shows the earBox": function() {
-        this.stub(jQuery.prototype, "show");
-        ear(this.stub());
-        assert.called(jQuery.prototype.show);
-    }
-
-});
-```
-## Test 12 - passing
-```js
-var ear = function (callback) {
-    var earBox = $("#earBox")
-    earBox.show();
-    callback("Bob");
-}
-```
-Why is the earBox showing up? **I need to stub qQuery.show in all the Ear tests.**
-```js
-buster.testCase("Ear", {
-
-    "calls callback after hearing something": function(done) {
-        this.stub(jQuery.prototype, "show");
-
-    ...
-
-});
-```
-## Test 13
-```js
-buster.testCase("Ear", {
-
-    ...
-    ,
-    "watches for a submit event": function () {
-        this.stub(jQuery.prototype, "show");
-        this.stub(jQuery.prototype, "submit");
-        ear(this.stub());
-        assert.called(jQuery.prototype.submit);
-    }
-
-});
-```
-## Test 13 - passing
-```js
-var ear = function (callback) {
-    ...
-    earBox.submit(function () {
-        callback($("#input").val());
-        earBox.hide();
-        return false;
-    })
-}
-```
-You noticed a test suddenly failed? **I know, I just don't want to fix that test right now. I will defer it.**
-```js
-buster.testCase("Ear", {
-
-    "//calls callback after hearing something": function(done) {
-    ...
-});
-```
 ## End to End Working
 ```js
 
