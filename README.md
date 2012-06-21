@@ -150,7 +150,7 @@ Does it pass? **No, it outputs an error.**
 ## Test 2 - failing
 Can you make it fail? **Sure**
 ```js
-var voice = function () {
+var voice = function (speech) {
 };
 ```
 Is the message clear? **Yes**
@@ -221,8 +221,8 @@ Did you forget about IE6 and IE7? ***{shudder}* I better use jQuery instead.**
 Now that you have a DOM element for your output, will you change the test? **Obviously**
 ```js
 buster.testCase("Voice", {
-
     ...
+
     ,
     "speaks to the DOM": function() {
         this.stub(jQuery.prototype, "html");
@@ -265,8 +265,8 @@ var voice = function (speech) {
 I just ran an end to end test and I don't see any output. What gives? **The voiceBox div is hidden. I will show it now.**
 ```js
 buster.testCase("Voice", {
-
     ...
+
     ,
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "show");
@@ -297,12 +297,15 @@ var voice = function (speech) {
 Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That remindes me, I need to stub html() and show() in all the voice tests.**
 ```js
 buster.testCase("Voice", {
+    "speaks to the DOM": function() {
+        ...
+        this.stub(jQuery.prototype, "show");
 
     ...
+
     ,
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "html");
-        this.stub(jQuery.prototype, "show");
         ...
     }
 
@@ -312,8 +315,8 @@ buster.testCase("Voice", {
 That's better, but the message just kinda hangs out there forever. Can you make it go away after a while? **Yes, I am adding a test for that.**
 ```js
 buster.testCase("Voice", {
-
     ...
+
     ,
     "hides the voicebox after a few seconds": function() {
         this.stub(jQuery.prototype, "html");
@@ -326,7 +329,7 @@ buster.testCase("Voice", {
         clock.tick(5000)
 
         assert.called(jQuery.prototype.slideUp);
-   }
+    }
 
 });
 ```
@@ -347,6 +350,7 @@ The greeting feels a little impersonal. **I will add a name.**
 ```js
 buster.testCase("Greeter", {
     ...
+
     ,
     "greets a person": function() {
         var voice = this.stub();
@@ -361,22 +365,19 @@ buster.testCase("Greeter", {
 ## Test 6 - passing
 ```js
 var CreateGreeter = function (voice) {
-    return {
+    ...
         greet: function (name) {
             voice("Hello, " + name + "!");
-        }
-    };
+    ...
 };
 ```
-I notice the End to End test is failing to show 'World'. **Yes, and I would fix it in production code.**
-
-What now? **I would like to get the greetee's name.**
+I notice the End to End test shows 'Hello, undefined!'. **Yes, I am fixing it by listening for a name.**
 
 ## Test 7
 ```js
 buster.testCase("Greeter", {
-
     ...
+
     ,
     "listens with an ear": function () {
         var ear = this.stub();
@@ -392,10 +393,11 @@ buster.testCase("Greeter", {
 var CreateGreeter = function (voice, ear) {
     return {
         ...
-        ,
 
+        ,
         listen: function () {
-            ear(this.greet);
+            var self = this;
+            ear(self.greet);
         }
     };
 });
@@ -428,8 +430,8 @@ var ear = function (callback) {
 ## Test 9
 ```js
 buster.testCase("Ear", {
-
     ...
+
     ,
     "shows the earBox": function() {
         this.stub(jQuery.prototype, "show");
@@ -444,7 +446,7 @@ buster.testCase("Ear", {
 var ear = function (callback) {
     var earBox = $("#earBox")
     earBox.show();
-    callback("Bob");
+    ...
 };
 ```
 Why is the earBox showing up? **I need to stub jQuery.show in all the Ear tests.**
@@ -461,8 +463,8 @@ buster.testCase("Ear", {
 ## Test 10
 ```js
 buster.testCase("Ear", {
-
     ...
+
     ,
     "watches for a submit event": function () {
         this.stub(jQuery.prototype, "show");
@@ -476,7 +478,8 @@ buster.testCase("Ear", {
 ## Test 10 - passing
 ```js
 var ear = function (callback) {
-    ...
+    var earBox = $("#earBox")
+    earBox.show();
     $("form").submit(function () {
         callback($("#input").val());
         earBox.hide();
@@ -484,7 +487,7 @@ var ear = function (callback) {
     });
 };
 ```
-You noticed a test suddenly failed? **I know, I just don't want to fix that test right now. I will defer it.**
+You noticed a test suddenly failed? **I know, I just don't want to fix it now by splitting out the function. I will defer it.**
 ```js
 buster.testCase("Ear", {
 
@@ -492,17 +495,19 @@ buster.testCase("Ear", {
     ...
 });
 ```
-Does the manual end to end test pass? **Not yet. I need to update the document.ready function.**
+## End to End
+Does the end to end test pass? **Not yet. I need to update the document.ready function.**
 ```js
 $(function() {
     CreateGreeter(voice, ear).listen()
 });
 ```
 ## Test 11
-What now? **Now we seek wisdom.**
+What now? **Now I seek wisdom.**
 ```js
 buster.testCase("Greeter", {
     ...
+
     ,
     "sends a pearl of wisdom": function () {
         var voice = this.stub();
@@ -516,17 +521,16 @@ buster.testCase("Greeter", {
 
 });
 ```
-How come you didn't check the wisdom? **I haven't been enlighted. Here is what I do know:**
+You didn't check the wisdom? **I haven't been enlighted. I just want to pass a test.**
 ```js
 var CreateGreeter = function (voice, ear) {
     return {
         greet: function (name) {
-            voice("Hello, " + name + "!");
+            ...
             this.name = name;
         },
-        listen: function () {
-            ear(this.greet);
-        },
+        ...
+        ,
         pontificate: function () {
             voice(this.name);
         }
@@ -538,6 +542,7 @@ Were does the wisdom come from? **A guru.**
 ```js
 buster.testCase("Greeter", {
     ...
+
     ,
     "pontificates guru wisdom": function() {
         var voice = this.stub();
@@ -550,25 +555,37 @@ buster.testCase("Greeter", {
 
 });
 ```
-How are you going to make this pass? **I am passing in a guru to CreateGreeter with a default so I don't have to change any other tests now.**
+How are you going to make this pass? **I am passing in a guru that takes a callback.**
 ```js
 var CreateGreeter = function (voice, ear, guru) {
     return {
-        guru: guru || function() {},
 
         ...
+
         ,
         pontificate: function () {
-            voice(this.name + ',' + this.guru());
+            var self = this;
+            guru(function (wisdom) {
+                voice(self.name + ', ' + wisdom);
+            });
         }
     };
 };
 ```
-## ERROR: AT THIS POINT, WHEN I RUN THE MANUAL TEST, I GET AN ERROR IN THE GREET FUNCTION ON THIS LINE
+Another one of your tests failed. **That is part of designing. Here is the fix. Not to mention  test improvement**
 ```js
-this.name = name;
+buster.testCase("Greeter", {
+    ...
+    "sends a pearl of wisdom": function () {
+        ...
+        var guru = function (callback) { callback('a nugget of wisdom'); }
+        ...
+        assert.match(voice.secondCall.args[0], /Kent.*wisdom/);
+    }
+    ...
+});
 ```
-## BECAUSE OF THAT ERROR, THE FORM SUBMIT IS NOT PREVENTED.
+
 ## Test 14 (new test case)
 What are you missing? **I need the guru's wisdom.**
 
@@ -577,7 +594,7 @@ buster.testCase("Guru", {
 
     "shares wisdom in a callback": function(done) {
         guru(function(wisdom) {
-            assertEquals(typeof wisdom, string);
+            assert.equals(typeof wisdom, 'string');
             done();
         });
     }
@@ -588,6 +605,7 @@ Is the test erroring or failing? **Neither, it is timing out.**
 
 How do you fix it? **I implement guru with a callback.**
 
+```js
 var guru = function (callback) {
     if (typeof(wisdom.index) == 'undefined' || wisdom.index == wisdom.length) {
         wisdom.index = 0;
@@ -595,14 +613,20 @@ var guru = function (callback) {
 
     callback(wisdom[wisdom.index++]);
 }
+```
 
 You didn't test wisdom.index. **Normally I would, just not in this kata.**
 
 ## End to End Working
 ```js
-
 var CreateGreeter = function (voice, guru, ear) {
     return {
+        greet: function (name) {
+            var self = this;
+            ...
+            setInterval(self.pontificate, 7000);
+        },
+ 
         ...
 
         listen: function () {
@@ -614,20 +638,12 @@ var CreateGreeter = function (voice, guru, ear) {
 
         ...
 
-        pontificate: function () {
-            var self = this;
-            this.guru(function (wisdom) {
-                voice(self.name + ', ' + wisdom);
-            });
-        }
     };
 });
 
 ...
 
 $(function() {
-    var greeter = CreateGreeter(voice, guru, ear)
-    greeter.listen();
-    setInterval(greeter.pontificate.bind(greeter), 7000);
+    CreateGreeter(voice, ear, guru).listen();
 });
 ```
