@@ -396,7 +396,8 @@ var CreateGreeter = function (voice, ear) {
 
         ,
         listen: function () {
-            ear(this.greet);
+            var self = this;
+            ear(self.greet);
         }
     };
 });
@@ -494,6 +495,7 @@ buster.testCase("Ear", {
     ...
 });
 ```
+## End to End
 Does the manual end to end test pass? **Not yet. I need to update the document.ready function.**
 ```js
 $(function() {
@@ -501,7 +503,7 @@ $(function() {
 });
 ```
 ## Test 11
-What now? **Now we seek wisdom.**
+What now? **Now I seek wisdom.**
 ```js
 buster.testCase("Greeter", {
     ...
@@ -519,7 +521,7 @@ buster.testCase("Greeter", {
 
 });
 ```
-How come you didn't check the wisdom? **I haven't been enlighted. Here is what I do know:**
+You didn't check the wisdom? **I haven't been enlighted. Here is what I do know:**
 ```js
 var CreateGreeter = function (voice, ear) {
     return {
@@ -527,9 +529,7 @@ var CreateGreeter = function (voice, ear) {
             voice("Hello, " + name + "!");
             this.name = name;
         },
-        listen: function () {
-            ear(this.greet);
-        },
+        ...
         pontificate: function () {
             voice(this.name);
         }
@@ -550,21 +550,25 @@ buster.testCase("Greeter", {
         var greeter = CreateGreeter(voice, ear, guru);
         greeter.pontificate();
         assert.called(guru);
+        // TODO calledWith?
     }
 
 });
 ```
-How are you going to make this pass? **I am passing in a guru to CreateGreeter with a default so I don't have to change any other tests now.**
+How are you going to make this pass? **I am passing in a guru that takes a callback.**
 ```js
 var CreateGreeter = function (voice, ear, guru) {
     return {
-        guru: guru || function() {},
+        guru: guru,
 
         ...
 
         ,
         pontificate: function () {
-            voice(this.name + ',' + this.guru());
+            var self = this;
+            this.guru(function (wisdom) {
+                voice(self.name + ', ' + wisdom);
+            });
         }
     };
 };
