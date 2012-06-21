@@ -221,8 +221,8 @@ Did you forget about IE6 and IE7? ***{shudder}* I better use jQuery instead.**
 Now that you have a DOM element for your output, will you change the test? **Obviously**
 ```js
 buster.testCase("Voice", {
-
     ...
+
     ,
     "speaks to the DOM": function() {
         this.stub(jQuery.prototype, "html");
@@ -265,8 +265,8 @@ var voice = function (speech) {
 I just ran an end to end test and I don't see any output. What gives? **The voiceBox div is hidden. I will show it now.**
 ```js
 buster.testCase("Voice", {
-
     ...
+
     ,
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "show");
@@ -297,8 +297,8 @@ var voice = function (speech) {
 Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That remindes me, I need to stub html() and show() in all the voice tests.**
 ```js
 buster.testCase("Voice", {
-
     ...
+
     ,
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "html");
@@ -312,8 +312,8 @@ buster.testCase("Voice", {
 That's better, but the message just kinda hangs out there forever. Can you make it go away after a while? **Yes, I am adding a test for that.**
 ```js
 buster.testCase("Voice", {
-
     ...
+
     ,
     "hides the voicebox after a few seconds": function() {
         this.stub(jQuery.prototype, "html");
@@ -347,6 +347,7 @@ The greeting feels a little impersonal. **I will add a name.**
 ```js
 buster.testCase("Greeter", {
     ...
+
     ,
     "greets a person": function() {
         var voice = this.stub();
@@ -375,8 +376,8 @@ What now? **I would like to get the greetee's name.**
 ## Test 7
 ```js
 buster.testCase("Greeter", {
-
     ...
+
     ,
     "listens with an ear": function () {
         var ear = this.stub();
@@ -392,8 +393,8 @@ buster.testCase("Greeter", {
 var CreateGreeter = function (voice, ear) {
     return {
         ...
-        ,
 
+        ,
         listen: function () {
             ear(this.greet);
         }
@@ -428,8 +429,8 @@ var ear = function (callback) {
 ## Test 9
 ```js
 buster.testCase("Ear", {
-
     ...
+
     ,
     "shows the earBox": function() {
         this.stub(jQuery.prototype, "show");
@@ -461,8 +462,8 @@ buster.testCase("Ear", {
 ## Test 10
 ```js
 buster.testCase("Ear", {
-
     ...
+
     ,
     "watches for a submit event": function () {
         this.stub(jQuery.prototype, "show");
@@ -477,6 +478,7 @@ buster.testCase("Ear", {
 ```js
 var ear = function (callback) {
     ...
+
     $("form").submit(function () {
         callback($("#input").val());
         earBox.hide();
@@ -503,6 +505,7 @@ What now? **Now we seek wisdom.**
 ```js
 buster.testCase("Greeter", {
     ...
+
     ,
     "sends a pearl of wisdom": function () {
         var voice = this.stub();
@@ -538,6 +541,7 @@ Were does the wisdom come from? **A guru.**
 ```js
 buster.testCase("Greeter", {
     ...
+
     ,
     "pontificates guru wisdom": function() {
         var voice = this.stub();
@@ -557,6 +561,7 @@ var CreateGreeter = function (voice, ear, guru) {
         guru: guru || function() {},
 
         ...
+
         ,
         pontificate: function () {
             voice(this.name + ',' + this.guru());
