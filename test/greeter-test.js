@@ -2,51 +2,44 @@
 
 buster.testCase("Greeter", {
 
-    "uses voice to greet": function() {
-        var voice = this.stub();
-        var ear = this.stub();
-        var guru = this.stub();
-        var repeater = this.stub();
+    setUp: function() {
+        this.voice = this.stub();
+        this.ear = this.stub();
+        this.guru = this.stub();
+        this.repeater = this.stub();
 
-        var greeter = CreateGreeter(voice, ear, guru, repeater);
-        greeter.greet();
-        assert.called(voice);
-        assert.match(voice.firstCall.args[0], /Hello/);
+        this.greeter = CreateGreeter(this.voice, this.ear, this.guru, this.repeater);
+    },
+    
+    "uses voice to greet": function() {
+        this.greeter.greet();
+        assert.called(this.voice);
+        assert.match(this.voice.firstCall.args[0], /Hello/);
+    },
+    "greets a person": function() {
+        this.greeter.greet("Bob");
+        assert.called(this.voice);
+        assert.match(this.voice.firstCall.args[0], /Bob/);
     }
     ,
     "listens with an ear": function () {
-        var voice = this.stub();
-        var ear = this.stub();
-        var guru = this.stub();
-        var repeater = this.stub();
-
-        var greeter = CreateGreeter(voice, ear, guru, repeater);
-        greeter.listen();
-        assert.called(ear);
+        this.greeter.listen();
+        assert.called(this.ear);
     }
     ,
     "sends a pearl of wisdom": function () {
-        var voice = this.stub();
-        var ear = this.stub();
         var guru = function (callback) { callback('a nugget of wisdom'); }
-        var repeater = this.stub();
 
-        var greeter = CreateGreeter(voice, ear, guru, repeater);
+        var greeter = CreateGreeter(this.voice, this.ear, guru, this.repeater);
         greeter.greet("Kent");
         greeter.pontificate();
-        assert.calledTwice(voice);
-        assert.match(voice.secondCall.args[0], /Kent.*wisdom/);
+        assert.calledTwice(this.voice);
+        assert.match(this.voice.secondCall.args[0], /Kent.*wisdom/);
     }
     ,
     "pontificates guru wisdom": function() {
-        var voice = this.stub();
-        var ear = this.stub();
-        var guru = this.stub();
-        var repeater = this.stub();
-
-        var greeter = CreateGreeter(voice, ear, guru, repeater);
-        greeter.pontificate();
-        assert.called(guru);
+        this.greeter.pontificate();
+        assert.called(this.guru);
     }
     ,
     "starts the guru speaking every few seconds": function() {
