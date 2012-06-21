@@ -279,7 +279,7 @@ buster.testCase("Voice", {
 ## Test 4 - passing
 Can you make this one pass? **I just need to call show.**
 ```js
-var voice = function (speech) {
+    var voice = function (speech) {
     $("#voiceBox").html(speech);
     $("#voiceBox").show();
 };
@@ -287,7 +287,7 @@ var voice = function (speech) {
 ## Test 4 - refactor
 I see some duplication. **I am cleaning that up right now.**
 ```js
-var voice = function (speech) {
+    var voice = function (speech) {
     var voiceBox = $("#voiceBox")
     voiceBox.html(speech);
     voiceBox.show();
@@ -320,7 +320,7 @@ buster.testCase("Voice", {
         this.stub(jQuery.prototype, "slideUp");
         var clock = this.useFakeTimers();
 
-        voice("goodby");
+        voice("goodbye");
         refute.called(jQuery.prototype.slideUp);
         clock.tick(5000)
 
