@@ -477,7 +477,7 @@ buster.testCase("Ear", {
 ```js
 var ear = function (callback) {
     ...
-    earBox.submit(function () {
+    $("form").submit(function () {
         callback($("#input").val());
         earBox.hide();
         return false;
@@ -524,6 +524,9 @@ var CreateGreeter = function (voice, ear) {
             voice("Hello, " + name + "!");
             this.name = name;
         },
+        listen: function () {
+            ear(this.greet);
+        },
         pontificate: function () {
             voice(this.name);
         }
@@ -549,7 +552,7 @@ buster.testCase("Greeter", {
 ```
 How are you going to make this pass? **I am passing in a guru to CreateGreeter with a default so I don't have to change any other tests now.**
 ```js
-var CreateGreeter = function (voice, guru) {
+var CreateGreeter = function (voice, ear, guru) {
     return {
         guru: guru || function() {},
 
@@ -561,6 +564,11 @@ var CreateGreeter = function (voice, guru) {
     };
 };
 ```
+## ERROR: AT THIS POINT, WHEN I RUN THE MANUAL TEST, I GET AN ERROR IN THE GREET FUNCTION ON THIS LINE
+```js
+this.name = name;
+```
+## BECAUSE OF THAT ERROR, THE FORM SUBMIT IS NOT PREVENTED.
 ## Test 14 (new test case)
 What are you missing? **I need the guru's wisdom.**
 
