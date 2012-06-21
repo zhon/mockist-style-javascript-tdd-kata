@@ -5,19 +5,22 @@ buster.testCase("Greeter", {
     "uses voice to greet": function() {
         var voice = this.stub();
         var ear = this.stub();
-        var clock = this.useFakeTimers();
+        var guru = this.stub();
+        var repeater = this.stub();
 
-        var greeter = CreateGreeter(voice, ear);
+        var greeter = CreateGreeter(voice, ear, guru, repeater);
         greeter.greet();
         assert.called(voice);
         assert.match(voice.firstCall.args[0], /Hello/);
     }
     ,
     "listens with an ear": function () {
+        var voice = this.stub();
         var ear = this.stub();
-        var clock = this.useFakeTimers();
+        var guru = this.stub();
+        var repeater = this.stub();
 
-        var greeter = CreateGreeter(null, ear);
+        var greeter = CreateGreeter(voice, ear, guru, repeater);
         greeter.listen();
         assert.called(ear);
     }
@@ -26,9 +29,9 @@ buster.testCase("Greeter", {
         var voice = this.stub();
         var ear = this.stub();
         var guru = function (callback) { callback('a nugget of wisdom'); }
-        var clock = this.useFakeTimers();
+        var repeater = this.stub();
 
-        var greeter = CreateGreeter(voice, ear, guru);
+        var greeter = CreateGreeter(voice, ear, guru, repeater);
         greeter.greet("Kent");
         greeter.pontificate();
         assert.calledTwice(voice);
@@ -39,9 +42,9 @@ buster.testCase("Greeter", {
         var voice = this.stub();
         var ear = this.stub();
         var guru = this.stub();
-//        var clock = this.useFakeTimers();
+        var repeater = this.stub();
 
-        var greeter = CreateGreeter(voice, ear, guru);
+        var greeter = CreateGreeter(voice, ear, guru, repeater);
         greeter.pontificate();
         assert.called(guru);
     }
@@ -50,16 +53,12 @@ buster.testCase("Greeter", {
         var voice = this.stub();
         var ear = this.stub();
         var guru = this.stub();
-        var clock = this.useFakeTimers();
+        var repeater = this.stub();
 
-        var greeter = CreateGreeter(voice, ear, guru);
+        var greeter = CreateGreeter(voice, ear, guru, repeater);
         var pontificator = this.stub(greeter, "pontificate");
         greeter.greet("mike");
-        refute.called(pontificator);
-        clock.tick(7000);
-        assert.called(pontificator);
-        clock.tick(7000);
-        assert.calledTwice(pontificator);
+        assert.called(repeater);
     }
 
 });
@@ -91,14 +90,6 @@ buster.testCase("Voice", {
         clock.tick(5000)
 
         assert.called(jQuery.prototype.slideUp);
-    }
-    ,
-    "greets a person": function() {
-        var voice = this.stub();
-        var greeter = CreateGreeter(voice);
-        greeter.greet("Bob");
-        assert.called(voice);
-        assert.match(voice.firstCall.args[0], /Bob/);
     }
 
 });
