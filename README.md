@@ -158,7 +158,7 @@ var voice = function (speech) {
     console.log(speech);
 };
 ```
-It everything working now? **Yes**
+It everything working? **Yes**
 
 How do you know it works? **I run all my tests including a manual end to end test.**
 
@@ -260,7 +260,7 @@ I just ran an end to end test and I don't see any output. What gives? **The voic
 buster.testCase("Voice", {
 
     ...
-
+    ,
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "show");
         voice("howdy, y'all");
@@ -286,14 +286,6 @@ var voice = function (speech) {
 };
 ```
 ## End to End Test
-I still don't see any output. **I will call greet() when the page loads.**
-
-Where are you putting this call? **At the bottom of greeter.js.**
-```js
-$(function() {
-    CreateGreeter(voice).greet()
-});
-```
 Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That remindes me, I need to stub html() in all the voice tests.**
 ```js
 buster.testCase("Voice", {
@@ -366,6 +358,8 @@ var CreateGreeter = function (voice) {
 };
 ```
 I notice the End to End test is failing to show 'World'. **Yes, and I would fix it in production code.**
+
+# TODO let get the input for the name.
 
 ## Test 7
 What now? **Now we seek wisdom.**
@@ -575,7 +569,7 @@ var ear = function (callback) {
     })
 }
 ```
-Another test suddenly failed. **I know, I just don't want to fix that test right now. I will defer it.**
+You noticed a test suddenly failed? **I know, I just don't want to fix that test right now. I will defer it.**
 ```js
 buster.testCase("Ear", {
 
