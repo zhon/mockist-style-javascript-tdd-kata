@@ -297,9 +297,12 @@ var voice = function (speech) {
 Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That remindes me, I need to stub html() and show() in all the voice tests.**
 ```js
 buster.testCase("Voice", {
-    ...
 
-    ,
+    "speaks to the DOM": function() {
+        this.stub(jQuery.prototype, "html");
+        this.stub(jQuery.prototype, "show");
+        ...
+    },
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "html");
         this.stub(jQuery.prototype, "show");
@@ -369,6 +372,28 @@ var CreateGreeter = function (voice) {
     };
 };
 ```
+## Test 6 - refactor
+The tests have duplicate setup now. **I am going to extract that into a setUp function.**
+```js
+buster.testCase("Greeter", {
+
+    setUp: function() {
+        this.voice = this.stub();
+        this.greeter = CreateGreeter(this.voice);
+    },
+    "uses voice to greet": function() {
+        this.greeter.greet();
+        assert.called(this.voice);
+        assert.match(this.voice.firstCall.args[0], /Hello/);
+    },
+    "greets a person": function() {
+        this.greeter.greet("Bob");
+        assert.called(this.voice);
+        assert.match(this.voice.firstCall.args[0], /Bob/);
+    }
+
+});
+```
 I notice the End to End test is failing to show 'World'. **Yes, and I would fix it in production code.**
 
 What now? **I would like to get the greetee's name.**
@@ -376,18 +401,21 @@ What now? **I would like to get the greetee's name.**
 ## Test 7
 ```js
 buster.testCase("Greeter", {
+    setUp: function() {
+        this.voice = this.stub();
+        this.ear = this.stub();
+        this.greeter = CreateGreeter(this.voice, this.ear);
+    },
     ...
-
     ,
     "listens with an ear": function () {
-        var ear = this.stub();
-        var greeter = CreateGreeter(null, ear);
-        greeter.listen();
-        assert.called(ear);
+        this.greeter.listen();
+        assert.called(this.ear);
     }
 
 });
 ```
+That setUp function made the new test pretty simple. **Yeah. I am glad we removed that duplication so that we could update all the tests at once.**
 ## Test 7 - passing
 ```js
 var CreateGreeter = function (voice, ear) {
