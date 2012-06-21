@@ -279,7 +279,7 @@ buster.testCase("Voice", {
 ## Test 4 - passing
 Can you make this one pass? **I just need to call show.**
 ```js
-    var voice = function (speech) {
+var voice = function (speech) {
     $("#voiceBox").html(speech);
     $("#voiceBox").show();
 };
@@ -287,14 +287,14 @@ Can you make this one pass? **I just need to call show.**
 ## Test 4 - refactor
 I see some duplication. **I am cleaning that up right now.**
 ```js
-    var voice = function (speech) {
+var voice = function (speech) {
     var voiceBox = $("#voiceBox")
     voiceBox.html(speech);
     voiceBox.show();
 };
 ```
 ## End to End Test
-Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That remindes me, I need to stub html() in all the voice tests.**
+Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That remindes me, I need to stub html() and show() in all the voice tests.**
 ```js
 buster.testCase("Voice", {
 
@@ -302,6 +302,7 @@ buster.testCase("Voice", {
     ,
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "html");
+        this.stub(jQuery.prototype, "show");
         ...
     }
 
@@ -391,12 +392,11 @@ buster.testCase("Greeter", {
 var CreateGreeter = function (voice, ear) {
     return {
         ...
+        ,
 
         listen: function () {
-            ear();
-        },
-
-        ...
+            ear(this.greet);
+        }
     };
 });
 
@@ -406,8 +406,8 @@ var CreateGreeter = function (voice, ear) {
 buster.testCase("Ear", {
 
     "notifies after hearing something": function(done) {
-        var callback = this.spy(function() {
-            assert.equals(typeof string, "string");
+        var callback = this.spy(function(sound) {
+            assert.equals(typeof sound, "string");
             done();
         });
         ear(callback);
@@ -422,7 +422,7 @@ Why are you using a spy. **Spys allow asserts without changing the behavior of f
 ```js
 var ear = function (callback) {
     callback("Bob");
-}
+};
 ```
 
 ## Test 9
@@ -445,13 +445,13 @@ var ear = function (callback) {
     var earBox = $("#earBox")
     earBox.show();
     callback("Bob");
-}
+};
 ```
 Why is the earBox showing up? **I need to stub jQuery.show in all the Ear tests.**
 ```js
 buster.testCase("Ear", {
 
-    "calls callback after hearing something": function(done) {
+    "notifies after hearing something": function(done) {
         this.stub(jQuery.prototype, "show");
 
     ...
@@ -481,15 +481,21 @@ var ear = function (callback) {
         callback($("#input").val());
         earBox.hide();
         return false;
-    })
-}
+    });
+};
 ```
 You noticed a test suddenly failed? **I know, I just don't want to fix that test right now. I will defer it.**
 ```js
 buster.testCase("Ear", {
 
-    "//calls callback after hearing something": function(done) {
+    "//notifies after hearing something": function(done) {
     ...
+});
+```
+Does the manual end to end test pass? **Not yet. I need to update the document.ready function.**
+```js
+$(function() {
+    CreateGreeter(voice, ear).listen()
 });
 ```
 ## Test 11
@@ -498,7 +504,7 @@ What now? **Now we seek wisdom.**
 buster.testCase("Greeter", {
     ...
     ,
-   "sends a pearl of wisdom": function () {
+    "sends a pearl of wisdom": function () {
         var voice = this.stub();
         var ear = this.stub();
         var greeter = CreateGreeter(voice, ear);
