@@ -29,12 +29,14 @@ console.log("Hello World!");
 Shouldn't you have written a test first? **Oops, I forgot this was a TDD kata.**
 ```js
 buster.testCase("Greeter", {
+
     "calls console log with hello": function () {
         this.stub(console, "log");
         greeter.greet();
         assert.called(console.log);
         assert.match(console.log.firstCall.args[0], /Hello/);
     }
+
 });
 ```
 Is this test failing with an _Error_ or a _Failure_?  **Error! I get ReferenceError: greeter is not defined**
@@ -78,6 +80,7 @@ buster.testCase("Greeter", {
         assert.called(voice);
         assert.match(voice.firstCall.args[0], /Hello/);
     }
+
 });
 ```
 Is this test _erroring_ or _failing_? **Erroring**
@@ -139,6 +142,7 @@ buster.testCase("Voice", {
         voice('sup');
         assert.calledWith(console.log, 'sup');
     }
+
 });
 ```
 Does it pass? **No, it outputs an error.**
@@ -176,6 +180,7 @@ buster.testCase("Greeter", {
         assert.called(voice);
         assert.match(voice.firstCall.args[0], /Hello/);
     }
+
 });
 
 buster.testCase("Voice", {
@@ -185,6 +190,7 @@ buster.testCase("Voice", {
         voice('sup');
         assert.calledWith(console.log, 'sup');
     }
+
 });
 ```
 ```js
@@ -218,12 +224,12 @@ buster.testCase("Voice", {
 
     ...
     ,
-
     "speaks to the DOM": function() {
         this.stub(jQuery.prototype, "html");
         voice('sup');
         assert.calledWith(jQuery.prototype.html, 'sup');
     }
+
 });
 ```
 Does it pass? **No, it failing. Notice I didn't forget my comma :)**
@@ -247,6 +253,7 @@ buster.testCase("Voice", {
         voice('sup');
         assert.calledWith(jQuery.prototype.html, 'sup');
     }
+
 });
 ```
 ```js
@@ -266,6 +273,7 @@ buster.testCase("Voice", {
         voice("howdy, y'all");
         assert.called(jQuery.prototype.show);
     }
+
 });
 ```
 ## Test 4 - passing
@@ -291,11 +299,12 @@ Why am I seeing the wrong message? **If I remove the testing lines from the html
 buster.testCase("Voice", {
 
     ...
-
+    ,
     "shows the voicebox": function() {
         this.stub(jQuery.prototype, "html");
         ...
     }
+
 });
 ```
 ## Test 5
@@ -304,7 +313,7 @@ That's better, but the message just kinda hangs out there forever. Can you make 
 buster.testCase("Voice", {
 
     ...
-
+    ,
     "hides the voicebox after a few seconds": function() {
         this.stub(jQuery.prototype, "html");
         this.stub(jQuery.prototype, "show");
@@ -317,6 +326,7 @@ buster.testCase("Voice", {
 
         assert.called(jQuery.prototype.slideUp);
    }
+
 });
 ```
 ## Test 5 - failing
@@ -336,7 +346,7 @@ The greeting feels a little impersonal. **I will add a name.**
 ```js
 buster.testCase("Greeter", {
     ...
-
+    ,
     "greets a person": function() {
         var voice = this.stub();
         var greeter = CreateGreeter(voice);
@@ -366,7 +376,7 @@ What now? **Now we seek wisdom.**
 ```js
 buster.testCase("Greeter", {
     ...
-
+    ,
    "sends a pearl of wisdom": function () {
         var voice = this.stub();
         var greeter = CreateGreeter(voice);
@@ -397,7 +407,7 @@ Were does the wisdom come from? **A guru.**
 ```js
 buster.testCase("Greeter", {
     ...
-
+    ,
     "pontificates guru wisdom": function() {
         var voice = this.stub();
         var guru = this.stub();
@@ -415,7 +425,7 @@ var CreateGreeter = function (voice, guru) {
         guru: guru || function() {},
 
         ...
-
+        ,
         pontificate: function () {
             voice(this.name + ',' + this.guru());
         }
@@ -459,7 +469,7 @@ What now? **Before we connect guru and greeter, I would like to get the greetee'
 buster.testCase("Greeter", {
 
     ...
-
+    ,
     "listens with an ear": function () {
         var ear = this.stub();
         var greeter = CreateGreeter(null, null, ear);
@@ -515,7 +525,7 @@ var ear = function (callback) {
 buster.testCase("Ear", {
 
     ...
-
+    ,
     "shows the earBox": function() {
         this.stub(jQuery.prototype, "show");
         ear(this.stub());
@@ -548,7 +558,7 @@ buster.testCase("Ear", {
 buster.testCase("Ear", {
 
     ...
-
+    ,
     "watches for a submit event": function () {
         this.stub(jQuery.prototype, "show");
         this.stub(jQuery.prototype, "submit");
@@ -574,7 +584,6 @@ You noticed a test suddenly failed? **I know, I just don't want to fix that test
 buster.testCase("Ear", {
 
     "//calls callback after hearing something": function(done) {
-
     ...
 });
 ```
