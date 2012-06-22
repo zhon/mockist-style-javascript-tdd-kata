@@ -413,7 +413,7 @@ buster.testCase("Greeter", {
 
 });
 ```
-That setUp function made the new test pretty simple. **Yeah. I am glad we removed that duplication so that we could update all the tests at once.**
+I like how you used setUp. **Yeah. I am glad we removed that duplication so that we could update all the tests at once.**
 ## Test 7 - passing
 ```js
 var CreateGreeter = function (voice, ear) {
@@ -446,7 +446,7 @@ buster.testCase("Ear", {
 
 });
 ```
-Why are you using a spy. **Spys allow asserts without changing the behavior of function it is spying on.**
+Why are you using a spy? **Spys allow asserts without changing the behavior of function it is spying on.**
 
 ## Test 8 - passing
 ```js
@@ -538,13 +538,10 @@ buster.testCase("Greeter", {
 
     ,
     "sends a pearl of wisdom": function () {
-        var voice = this.stub();
-        var ear = this.stub();
-        var greeter = CreateGreeter(voice, ear);
-        greeter.greet("Kent");
-        greeter.pontificate();
-        assert.calledTwice(voice);
-        assert.match(voice.secondCall.args[0], /Kent/);
+        this.greeter.greet("Kent");
+        this.greeter.pontificate();
+        assert.calledTwice(this.voice);
+        assert.match(this.voice.secondCall.args[0], /Kent/);
     }
 
 });
