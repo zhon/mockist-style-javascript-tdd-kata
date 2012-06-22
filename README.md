@@ -599,7 +599,7 @@ var CreateGreeter = function (voice, ear, guru) {
     };
 };
 ```
-Another one of your tests failed. **That is part of designing. Here is the fix. Not to mention  test improvement**
+Another one of your tests failed. **That is part of designing. Here is the fix. Not to mention test improvement**
 ```js
 buster.testCase("Greeter", {
     ...
@@ -610,13 +610,13 @@ buster.testCase("Greeter", {
         greeter.pontificate();
         assert.calledTwice(this.voice);
         assert.match(this.voice.secondCall.args[0], /Kent.*wisdom/);
-    }
+    },
     ...
 });
 ```
 
-## Test 14 (new test case)
-What are you missing? **I need the guru's wisdom.**
+## Test 13 (new test case)
+You seem a little distracted? **Yes, I need guru wisdom.**
 
 ```js
 buster.testCase("Guru", {
