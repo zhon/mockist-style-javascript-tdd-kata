@@ -4,15 +4,17 @@ I hear you want to learn mockist/interaction/London style test driven developmen
 
 What app do you want to build? **A wisdom sharing greeting bot.**
 
-How are you going end to end test it? **I think manually testing it will be sufficient.**
+How are you going to end to end test it? **I think manually testing it will be sufficient.**
 
-Why not automated an end to end test? **When manually running all my end to end tests becomes tedious, I will automate them.**
+Why not automated your end to end test? **Oh, I will just not in this kata.**
 
 Where are the unit tests and code on the file system? **The code is structured as a standard node.js application:**
 * **Tests are in test/greeter-test.js**
 * **Application code is in lib/greeter.js**
 
 What is buster? **buster.js is the javascript testing framework I am using for this kata.**
+
+What is wisdom.js? **That is the man behind the curtain.**
 
 How do you run the tests? **Open greeter-test.html in Chrome or Firefox (not IE).**
 
@@ -251,7 +253,7 @@ var voice = function (speech) {
 };
 ```
 ## End to End Test
-Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That remindes me, I need to stub html() and show() in all Voice tests.**
+Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That reminds me, I need to stub html() and show() in all Voice tests.**
 ```js
 buster.testCase("Voice", {
     "speaks to the DOM": function() {
@@ -433,7 +435,7 @@ var ear = function (callback) {
     ...
 };
 ```
-Why is the earBox showing up? **I am stubbing 'jQuery.show' in all the Ear tests to make it disapear.**
+Why is the earBox showing up? **I am stubbing 'jQuery.show' in all the Ear tests to make it disappear.**
 ```js
 buster.testCase("Ear", {
 
@@ -502,7 +504,7 @@ buster.testCase("Greeter", {
 
 });
 ```
-You didn't check the wisdom? **I haven't been enlighted. I just want to pass tests.**
+You didn't check the wisdom? **I haven't been enlightened. I just want to pass tests.**
 ```js
 var CreateGreeter = function (voice, ear) {
     return {
@@ -613,7 +615,7 @@ var guru = function (callback) {
 What is wisdom.index? You didn't test it. **A magical way of getting wisdom. Normally I would test it, but this kata is long enough.**
 ## Test 14
 
-How are we going to finish? **With the pontificator repeating different sayings.**
+How are we going to finish? **With pontificate repeating different sayings.**
 ```js
 buster.testCase("Greeter", {
     setUp: function() {
