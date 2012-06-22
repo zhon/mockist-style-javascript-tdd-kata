@@ -566,16 +566,18 @@ var CreateGreeter = function (voice, ear) {
 Were does the wisdom come from? **A guru.**
 ```js
 buster.testCase("Greeter", {
+    
+    setUp: function() {
+        ...
+        this.guru = this.stub();
+        this.greeter = CreateGreeter(this.voice, this.ear, this.guru);
+    },
     ...
 
     ,
     "pontificates guru wisdom": function() {
-        var voice = this.stub();
-        var ear = this.stub();
-        var guru = this.stub();
-        var greeter = CreateGreeter(voice, ear, guru);
-        greeter.pontificate();
-        assert.called(guru);
+        this.greeter.pontificate();
+        assert.called(this.guru);
     }
 
 });
