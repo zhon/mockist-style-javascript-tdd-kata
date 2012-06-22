@@ -430,7 +430,7 @@ buster.testCase("Ear", {
 ## Test 9 - passing
 ```js
 var ear = function (callback) {
-    var earBox = $("#earBox")
+    var earBox = $("#earBox");
     earBox.show();
     ...
 };
