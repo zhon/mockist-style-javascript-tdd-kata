@@ -694,9 +694,9 @@ buster.testCase("Greeter", {
 
 ## End to End Working
 ```js
-    var repeater = function (callback, timeout) {
-        setInterval(callback, timeout);
-    };
+var repeater = function (callback, timeout) {
+    setInterval(callback, timeout);
+};
 
 ...
 
