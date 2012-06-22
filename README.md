@@ -645,6 +645,36 @@ var guru = function (callback) {
 ```
 
 You didn't test wisdom.index. **Normally I would, just not in this kata.**
+## Test 14
+
+```js
+var CreateGreeter = function (voice, guru, ear) {
+    setUp: function() {
+        ...
+        this.repeater = this.stub();
+        this.greeter = CreateGreeter(voice, ear, guru, repeater);
+    },
+
+    ...
+
+    ,
+    "starts the guru speaking every few seconds": function() {
+        var pontificator = this.stub(greeter, "pontificate");
+        this.greeter.greet("mike");
+        assert.called(this.repeater);
+    }
+});
+```
+
+## Test 14 - passing
+```js
+var CreateGreeter = function (voice, ear, guru, repeater) {
+    return {
+        greet: function (name) {
+            ...
+            repeater(this.pontificate.bind(this), 7000);
+    ...
+```
 
 ## End to End Working
 ```js
