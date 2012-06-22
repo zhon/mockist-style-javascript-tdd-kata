@@ -641,7 +641,7 @@ var guru = function (callback) {
     }
 
     callback(wisdom[wisdom.index++]);
-}
+};
 ```
 
 You didn't test wisdom.index. **Normally I would, just not in this kata.**
@@ -694,31 +694,13 @@ buster.testCase("Greeter", {
 
 ## End to End Working
 ```js
-var CreateGreeter = function (voice, guru, ear) {
-    return {
-        greet: function (name) {
-            var self = this;
-            ...
-            setInterval(self.pontificate, 7000);
-        },
- 
-        ...
-
-        listen: function () {
-            var self = this;
-            ear(function() {
-                self.greet(name)
-            });
-        },
-
-        ...
-
+    var repeater = function (callback, timeout) {
+        setInterval(callback, timeout);
     };
-});
 
 ...
 
 $(function() {
-    CreateGreeter(voice, ear, guru).listen();
+    CreateGreeter(voice, ear, guru, repeater).listen();
 });
 ```
