@@ -649,14 +649,9 @@ var CreateGreeter = function (voice, ear, guru, repeater) {
 
 ## End to End Working
 ```js
-var repeater = function (callback, timeout) {
-    setInterval(callback, timeout);
-};
-
-...
 
 $(function () {
-    CreateGreeter(voice, ear, guru, repeater).listen();
+    CreateGreeter(voice, ear, guru, setInterval).listen();
 });
 ```
 
