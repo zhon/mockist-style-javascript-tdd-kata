@@ -115,7 +115,7 @@ How do you know it doesn't do anything? **If I run it, it shows nothing.**
 ## End to End Test
 How do you run it? **I add the following to the bottom of greeter.js and check the browser and browser console (F12).**
 ```js
-$(function() {
+$(function () {
     CreateGreeter(voice).greet();
 });
 ```
@@ -342,7 +342,7 @@ Oh, so you will be calling setTimeout? **That is the general idea.**
 ```js
 var voice = function (speech) {
     ...
-    setTimeout(function(){ voiceBox.slideUp() }, 5000);
+    setTimeout(function () { voiceBox.slideUp() }, 5000);
 };
 ```
 ## Test 6
@@ -528,7 +528,7 @@ buster.testCase("Ear", {
 ## End to End
 Does the end to end test pass? **Not yet. I need to update the document.ready function.**
 ```js
-$(function() {
+$(function () {
     CreateGreeter(voice, ear).listen()
 });
 ```
@@ -648,7 +648,7 @@ How do you fix it? **guru calls the callback.**
 
 ```js
 var guru = function (callback) {
-    if (typeof(wisdom.index) == 'undefined' || wisdom.index == wisdom.length) {
+    if (typeof wisdom.index === 'undefined' || wisdom.index === wisdom.length) {
         wisdom.index = 0;
     }
 
@@ -699,7 +699,7 @@ var repeater = function (callback, timeout) {
 
 ...
 
-$(function() {
+$(function () {
     CreateGreeter(voice, ear, guru, repeater).listen();
 });
 ```
