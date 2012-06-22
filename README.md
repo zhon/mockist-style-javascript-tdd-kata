@@ -47,7 +47,7 @@ What can you do to make it fail?
 var greeter = {
     greet: function () {
     }
-}
+};
 ```
 Good, is the message clear? **Yes**
 
@@ -67,7 +67,7 @@ Why not? **I am logging to the console. Nobody logs to the console.**
 Where should your output be going? **I don't know. HTML, stderr, stdout, audio?**
 
 ## Test 1 - refactor
-Can you write your code without specifying where the output will go? **Sure**
+Can you rewrite your code and test without specifying where the output will go? **Sure**
 
 Ok, rewrite the first test.
 ```js
@@ -111,12 +111,12 @@ Are you done? **No**
 
 Why not? **It doesn't do anything!**
 
-How do you know it doesn't do anything? **If I run it, it does nothing.**
+How do you know it doesn't do anything? **If I run it, it shows nothing.**
 ## End to End Test
 How do you run it? **I add the following to the bottom of greeter.js and check the browser and browser console (F12).**
 ```js
 $(function() {
-    CreateGreeter(voice).greet()
+    CreateGreeter(voice).greet();
 });
 ```
 
@@ -124,7 +124,7 @@ You are using the test HTML as your final HTML? **Yes, I will run it through a b
 
 For simple things, is manually running an end to end test sufficient? **Yes**
 
-Ok, run it! **Like I said, it didn't do anything!**
+Ok, run it! **Like I said, it didn't show anything (throws a ReferenceError).**
 
 How do you make it do something? **Implement voice**
 
@@ -137,10 +137,10 @@ Should you write a test first? **Yes, this is a TDD Kata after all.**
 ```js
 buster.testCase("Voice", {
 
-    "speaks via console.log": function() {
+    "speaks via console.log": function () {
         this.stub(console, "log");
-        voice('sup');
-        assert.calledWith(console.log, 'sup');
+        voice("sup");
+        assert.calledWith(console.log, "sup");
     }
 
 });
@@ -164,7 +164,7 @@ var voice = function (speech) {
 ```
 It everything working? **Yes**
 
-How do you know it works? **I run all my tests including a manual end to end test.**
+How do you know it works? **I run all my tests including a manual end to end test. The console shows 'Hello, world!'.**
 
 Can you show me the entire implementation? **Sure**
 ```js
@@ -224,10 +224,10 @@ buster.testCase("Voice", {
     ...
 
     ,
-    "speaks to the DOM": function() {
+    "speaks to the DOM": function () {
         this.stub(jQuery.prototype, "html");
-        voice('sup');
-        assert.calledWith(jQuery.prototype.html, 'sup');
+        voice("sup");
+        assert.calledWith(jQuery.prototype.html, "sup");
     }
 
 });
@@ -268,7 +268,7 @@ buster.testCase("Voice", {
     ...
 
     ,
-    "shows the voicebox": function() {
+    "shows the voice box": function () {
         this.stub(jQuery.prototype, "show");
         voice("howdy, y'all");
         assert.called(jQuery.prototype.show);
@@ -304,7 +304,7 @@ buster.testCase("Voice", {
     ...
 
     ,
-    "shows the voicebox": function() {
+    "shows the voice box": function() {
         this.stub(jQuery.prototype, "html");
         ...
     }
@@ -318,7 +318,7 @@ buster.testCase("Voice", {
     ...
 
     ,
-    "hides the voicebox after a few seconds": function() {
+    "hides the voice box after a few seconds": function () {
         this.stub(jQuery.prototype, "html");
         this.stub(jQuery.prototype, "show");
         this.stub(jQuery.prototype, "slideUp");
@@ -352,12 +352,12 @@ buster.testCase("Greeter", {
     ...
 
     ,
-    "greets a person": function() {
+    "greets a person": function () {
         var voice = this.stub();
         var greeter = CreateGreeter(voice);
-        greeter.greet("Bob");
+        greeter.greet("Ward");
         assert.called(voice);
-        assert.match(voice.firstCall.args[0], /Bob/);
+        assert.match(voice.firstCall.args[0], /Ward/);
     }
 
 });
@@ -399,7 +399,7 @@ I notice the End to End test shows 'Hello, undefined!'. **Yes, I am fixing it by
 ```js
 buster.testCase("Greeter", {
     setUp: function() {
-        this.voice = this.stub();
+        ...
         this.ear = this.stub();
         this.greeter = CreateGreeter(this.voice, this.ear);
     },
@@ -430,13 +430,14 @@ var CreateGreeter = function (voice, ear) {
     };
 });
 
+You seem to be missing an ear. **Uh, I can hear you! Yes, I am writing a test for that.**
 ```
 ## Test 8 (new test case)
 ```js
 buster.testCase("Ear", {
 
-    "notifies after hearing something": function(done) {
-        var callback = this.spy(function(sound) {
+    "notifies after hearing something": function (done) {
+        var callback = this.spy(function (sound) {
             assert.equals(typeof sound, "string");
             done();
         });
@@ -451,17 +452,18 @@ Why are you using a spy? **Spys allow asserts without changing the behavior of f
 ## Test 8 - passing
 ```js
 var ear = function (callback) {
-    callback("Bob");
+    callback("Martin");
 };
 ```
 
+What is up with the 'Martin'? **You will see in just a couple of tests.**
 ## Test 9
 ```js
 buster.testCase("Ear", {
     ...
 
     ,
-    "shows the earBox": function() {
+    "shows the earBox": function () {
         this.stub(jQuery.prototype, "show");
         ear(this.stub());
         assert.called(jQuery.prototype.show);
@@ -477,7 +479,7 @@ var ear = function (callback) {
     ...
 };
 ```
-Why is the earBox showing up? **I need to stub jQuery.show in all the Ear tests.**
+Why is the earBox showing up? **I am stubbing 'jQuery.show' in all the Ear tests to make it disapear.**
 ```js
 buster.testCase("Ear", {
 
@@ -515,7 +517,7 @@ var ear = function (callback) {
     });
 };
 ```
-You noticed a test suddenly failed? **I know, I just don't want to fix it now by splitting out the function. I will defer it.**
+Thanks for getting rid of 'Martin'; you noticed a different test suddenly failed? **I know, I should fix it by splitting the function. I just don't want to do it. I will defer it.**
 ```js
 buster.testCase("Ear", {
 
@@ -546,7 +548,7 @@ buster.testCase("Greeter", {
 
 });
 ```
-You didn't check the wisdom? **I haven't been enlighted. I just want to pass a test.**
+You didn't check the wisdom? **I haven't been enlighted. I just want to pass the test.**
 ```js
 var CreateGreeter = function (voice, ear) {
     return {
@@ -563,10 +565,10 @@ var CreateGreeter = function (voice, ear) {
 };
 ```
 ## Test 12
-Were does the wisdom come from? **A guru.**
+Were do you find wisdom? **A guru?**
 ```js
 buster.testCase("Greeter", {
-    
+
     setUp: function() {
         ...
         this.guru = this.stub();
@@ -575,7 +577,7 @@ buster.testCase("Greeter", {
     ...
 
     ,
-    "pontificates guru wisdom": function() {
+    "pontificates guru wisdom": function () {
         this.greeter.pontificate();
         assert.called(this.guru);
     }
@@ -599,16 +601,17 @@ var CreateGreeter = function (voice, ear, guru) {
     };
 };
 ```
-Another one of your tests failed. **That is part of designing. Here is the fix. Not to mention test improvement**
+Another one of your tests failed. **That is part of designing. Here is a fix.**
 ```js
 buster.testCase("Greeter", {
+
+    setUp: function () {
+        ...
+        this.guru = this.spy(function (callback) { callback('nugget of wisdom'); });
+
     ...
     "sends a pearl of wisdom": function () {
-        var guru = function (callback) { callback('a nugget of wisdom'); }
-        var greeter = CreateGreeter(this.voice, this.ear, guru);
-        greeter.greet("Kent");
-        greeter.pontificate();
-        assert.calledTwice(this.voice);
+        ...
         assert.match(this.voice.secondCall.args[0], /Kent.*wisdom/);
     },
     ...
@@ -616,23 +619,32 @@ buster.testCase("Greeter", {
 ```
 
 ## Test 13 (new test case)
-You seem a little distracted? **Yes, I need guru wisdom.**
+You seem a little distracted? **Yes, I need a guru.**
 
 ```js
 buster.testCase("Guru", {
 
-    "shares wisdom in a callback": function(done) {
-        guru(function(wisdom) {
-            assert.equals(typeof wisdom, 'string');
+    "shares wisdom in a callback": function (done) {
+        guru(function (wisdom) {
+            assert.equals(typeof wisdom, "string");
             done();
         });
     }
 
 });
 ```
+Is the test erroring or failing? **ReferenceError**
+
+```js
+var guru = function (callback) {
+
+};
+```
+
+
 Is the test erroring or failing? **Neither, it is timing out.**
 
-How do you fix it? **I implement guru with a callback.**
+How do you fix it? **guru calls the callback.**
 
 ```js
 var guru = function (callback) {
@@ -644,9 +656,10 @@ var guru = function (callback) {
 };
 ```
 
-You didn't test wisdom.index. **Normally I would, just not in this kata.**
+What is wisdom.index? You didn't test it. **Magical way of getting wisdom. Normally I would test it, just not in this kata.**
 ## Test 14
 
+How are we going to finish? **With the pontificator repeating different sayings.**
 ```js
 buster.testCase("Greeter", {
     setUp: function() {
@@ -658,9 +671,9 @@ buster.testCase("Greeter", {
     ...
 
     ,
-    "starts the guru speaking every few seconds": function() {
+    "starts the guru speaking every few seconds": function () {
         var pontificator = this.stub(this.greeter, "pontificate");
-        this.greeter.greet("mike");
+        this.greeter.greet("Michael");
         assert.called(this.repeater);
     }
 });
@@ -677,20 +690,6 @@ var CreateGreeter = function (voice, ear, guru, repeater) {
 });
 
 ```
-Again a test is failing? **This is telling us to change the design, but for now...**
-
-
-```js
-buster.testCase("Greeter", {
-
-    ...
-
-    ,
-    "sends a pearl of wisdom": function () {
-        var guru = function (callback) { callback('a nugget of wisdom'); }
-        var greeter = CreateGreeter(this.voice, this.ear, guru, this.repeater);
-```
-
 
 ## End to End Working
 ```js
