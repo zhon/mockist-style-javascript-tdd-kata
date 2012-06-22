@@ -648,18 +648,18 @@ You didn't test wisdom.index. **Normally I would, just not in this kata.**
 ## Test 14
 
 ```js
-var CreateGreeter = function (voice, guru, ear) {
+buster.testCase("Greeter", {
     setUp: function() {
         ...
         this.repeater = this.stub();
-        this.greeter = CreateGreeter(voice, ear, guru, repeater);
+        this.greeter = CreateGreeter(this.voice, this.ear, this.guru, this.repeater);
     },
 
     ...
 
     ,
     "starts the guru speaking every few seconds": function() {
-        var pontificator = this.stub(greeter, "pontificate");
+        var pontificator = this.stub(this.greeter, "pontificate");
         this.greeter.greet("mike");
         assert.called(this.repeater);
     }
@@ -674,7 +674,23 @@ var CreateGreeter = function (voice, ear, guru, repeater) {
             ...
             repeater(this.pontificate.bind(this), 7000);
     ...
+});
+
 ```
+Again a test is failing? **This is telling us to change the design, but for now...**
+
+
+```js
+buster.testCase("Greeter", {
+
+    ...
+
+    ,
+    "sends a pearl of wisdom": function () {
+        var guru = function (callback) { callback('a nugget of wisdom'); }
+        var greeter = CreateGreeter(this.voice, this.ear, guru, this.repeater);
+```
+
 
 ## End to End Working
 ```js
