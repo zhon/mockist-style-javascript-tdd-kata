@@ -604,10 +604,12 @@ Another one of your tests failed. **That is part of designing. Here is the fix. 
 buster.testCase("Greeter", {
     ...
     "sends a pearl of wisdom": function () {
-        ...
         var guru = function (callback) { callback('a nugget of wisdom'); }
-        ...
-        assert.match(voice.secondCall.args[0], /Kent.*wisdom/);
+        var greeter = CreateGreeter(this.voice, this.ear, guru);
+        greeter.greet("Kent");
+        greeter.pontificate();
+        assert.calledTwice(this.voice);
+        assert.match(this.voice.secondCall.args[0], /Kent.*wisdom/);
     }
     ...
 });
