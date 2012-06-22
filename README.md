@@ -397,7 +397,9 @@ var CreateGreeter = function (voice, ear) {
         ,
         listen: function () {
             var self = this;
-            ear(self.greet);
+            ear(function (name) {
+                self.greet(name);
+            });
         }
     };
 });
@@ -631,8 +633,8 @@ var CreateGreeter = function (voice, guru, ear) {
 
         listen: function () {
             var self = this;
-            ear(function (name) {
-              self.greet(name);
+            ear(function() {
+                self.greet(name)
             });
         },
 
