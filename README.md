@@ -42,17 +42,17 @@ buster.testCase("Greeter", {
 Is this test failing with an _Error_ or a _Failure_?  **Error! I get ReferenceError: greeter is not defined**
 
 ## Test 1 - failing
-What can you do to make it fail?
+Can you make it fail?
 ```js
 var greeter = {
     greet: function () {
     }
 };
 ```
-Good, is the message clear? **Yes**
+Is the message clear? **Yes**
 
 ## Test 1 - passing
-Ok, how do you make it pass?
+How do you make it pass?
 ```js
     greet: function () {
         console.log("Hello, world!");
@@ -87,7 +87,7 @@ Is this test _erroring_ or _failing_? **Erroring**
 
 Is 'erroring' a word? **I don't know, but _erring_ is a word.**
 
-How do you get to an failure? **Implement CreateGreeter(voice)**
+How do you get a failure? **Implement CreateGreeter(voice)**
 
 ## Test 1 - failing (again)
 ```js
@@ -124,9 +124,9 @@ You are using the test HTML as your final HTML? **Yes, I will run it through a b
 
 For simple things, is manually running an end to end test sufficient? **Yes**
 
-Ok, run it! **Like I said, it didn't show anything (throws a ReferenceError).**
+Ok, run it! **Like I said, it didn't show anything (it throws a ReferenceError).**
 
-How do you make it do something? **Implement voice**
+How do you make it do something? **Implement voice.**
 
 How do you implement voice? **I don't know. Where should I send the output?**
 
@@ -156,7 +156,7 @@ var voice = function (speech) {
 Is the message clear? **Yes**
 
 ## Test 2 - passing
-Can you make it pass? **No problem**
+Can you make it pass? **No problem.**
 ```js
 var voice = function (speech) {
     console.log(speech);
@@ -166,49 +166,6 @@ It everything working? **Yes**
 
 How do you know it works? **I run all my tests including a manual end to end test. The console shows 'Hello, world!'.**
 
-Can you show me the entire implementation? **Sure**
-```js
-// test/greeter-test.js
-"use strict";
-
-buster.testCase("Greeter", {
-
-    "uses voice to greet": function() {
-        var voice = this.stub();
-        var greeter = CreateGreeter(voice);
-        greeter.greet();
-        assert.called(voice);
-        assert.match(voice.firstCall.args[0], /Hello/);
-    }
-
-});
-
-buster.testCase("Voice", {
-
-    "speaks via console.log": function() {
-        this.stub(console, "log");
-        voice('sup');
-        assert.calledWith(console.log, 'sup');
-    }
-
-});
-```
-```js
-// lib/greeter.js
-"use strict";
-
-var CreateGreeter = function (voice) {
-    return {
-        greet: function () {
-            voice("Hello, world!");
-        }
-    };
-};
-
-var voice = function (speech) {
-    console.log(speech);
-};
-```
 Are you happy with this implementation? **Not quite. Console.log is not viable javascript output.**
 
 Where do you want the output to go? **A web page.**
@@ -294,7 +251,7 @@ var voice = function (speech) {
 };
 ```
 ## End to End Test
-Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That remindes me, I need to stub html() and show() in all the voice tests.**
+Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That remindes me, I need to stub html() and show() in all Voice tests.**
 ```js
 buster.testCase("Voice", {
     "speaks to the DOM": function() {
@@ -312,7 +269,7 @@ buster.testCase("Voice", {
 });
 ```
 ## Test 5
-That's better, but the message just kinda hangs out there forever. Can you make it go away after a while? **Yes, I am adding a test for that.**
+That's better, but the message hangs around forever. Can you make it go away? **Yes, I am adding a test for that.**
 ```js
 buster.testCase("Voice", {
     ...
@@ -333,12 +290,10 @@ buster.testCase("Voice", {
 
 });
 ```
-## Test 5 - failing
-So this one fails the right away with a clear message, right? **Yep.**
 ## Test 5 - passing
 I noticed that you used "refute.called" **Yes, that ensures that I don't just call slideUp immediately.**
 
-Oh, so you will be calling setTimeout? **That is the general idea.**
+Oh, you will be calling setTimeout? **Yes**
 ```js
 var voice = function (speech) {
     ...
@@ -346,7 +301,7 @@ var voice = function (speech) {
 };
 ```
 ## Test 6
-The greeting feels a little impersonal. **I will add a name.**
+The greeting feels a little impersonal. **I am adding the greetee's name.**
 ```js
 buster.testCase("Greeter", {
     ...
@@ -372,7 +327,7 @@ var CreateGreeter = function (voice) {
 };
 ```
 ## Test 6 - refactor
-The tests have duplicate setup now. **I am going to extract that into a setUp function.**
+The tests have duplicate setup. **I am extracting it into a setUp.**
 ```js
 buster.testCase("Greeter", {
 
@@ -413,7 +368,7 @@ buster.testCase("Greeter", {
 
 });
 ```
-I like how you used setUp. **Yeah. I am glad we removed that duplication so that we could update all the tests at once.**
+I like how you used setUp. **Yeah. I am glad we removed that duplication so that we can update all the tests at once.**
 ## Test 7 - passing
 ```js
 var CreateGreeter = function (voice, ear) {
