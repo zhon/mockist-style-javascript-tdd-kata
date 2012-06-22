@@ -384,9 +384,8 @@ var CreateGreeter = function (voice, ear) {
         }
     };
 });
-
-You seem to be missing an ear. **Uh, I can hear you! Yes, I am writing a test for that.**
 ```
+You seem to be missing an ear. **Uh, I can hear you! Yes, I am writing a test for that.**
 ## Test 8 (new test case)
 ```js
 buster.testCase("Ear", {
@@ -411,7 +410,7 @@ var ear = function (callback) {
 };
 ```
 
-What is up with the 'Martin'? **You will see in just a couple of tests.**
+What is up with 'Martin'? **Just a place holder, it will be gone soon.**
 ## Test 9
 ```js
 buster.testCase("Ear", {
@@ -488,7 +487,7 @@ $(function () {
 });
 ```
 ## Test 11
-What now? **Now I seek wisdom.**
+What now? **I seek wisdom.**
 ```js
 buster.testCase("Greeter", {
     ...
@@ -503,7 +502,7 @@ buster.testCase("Greeter", {
 
 });
 ```
-You didn't check the wisdom? **I haven't been enlighted. I just want to pass the test.**
+You didn't check the wisdom? **I haven't been enlighted. I just want to pass tests.**
 ```js
 var CreateGreeter = function (voice, ear) {
     return {
@@ -539,7 +538,7 @@ buster.testCase("Greeter", {
 
 });
 ```
-How are you going to make this pass? **I am passing in a guru that takes a callback.**
+How are you going to make this pass? **A guru with a callback.**
 ```js
 var CreateGreeter = function (voice, ear, guru) {
     return {
@@ -574,7 +573,7 @@ buster.testCase("Greeter", {
 ```
 
 ## Test 13 (new test case)
-You seem a little distracted? **Yes, I need a guru.**
+You seem a little distracted? **Yes, I really need a guru.**
 
 ```js
 buster.testCase("Guru", {
@@ -590,12 +589,12 @@ buster.testCase("Guru", {
 ```
 Is the test erroring or failing? **ReferenceError**
 
+## Test 13 - timing out
 ```js
 var guru = function (callback) {
 
 };
 ```
-
 
 Is the test erroring or failing? **Neither, it is timing out.**
 
@@ -611,7 +610,7 @@ var guru = function (callback) {
 };
 ```
 
-What is wisdom.index? You didn't test it. **Magical way of getting wisdom. Normally I would test it, just not in this kata.**
+What is wisdom.index? You didn't test it. **A magical way of getting wisdom. Normally I would test it, but this kata is long enough.**
 ## Test 14
 
 How are we going to finish? **With the pontificator repeating different sayings.**
@@ -658,3 +657,5 @@ $(function () {
     CreateGreeter(voice, ear, guru, repeater).listen();
 });
 ```
+
+If you made it here, you deserve a pat on the back and a snack. **Thank you!**
