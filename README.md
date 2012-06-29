@@ -799,3 +799,5 @@ $(function () {
 ```
 
 If you made it here, you deserve a pat on the back and a snack. **Thank you!**
+
+<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/80x15.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type">mockist-style-javascript-tdd-kata</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/zhon/mockist-style-javascript-tdd-kata" property="cc:attributionName" rel="cc:attributionURL">Zhon Johansen, David Adsit</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
