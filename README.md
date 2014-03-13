@@ -573,7 +573,7 @@ var ear = function (callback) {
 };
 
 ```
-Thanks for getting rid of 'Martin'; you noticed a different test suddenly failed? **I know, I should fix it by splitting the function. I just don't want to do it. I will defer it.**
+Thanks for getting rid of 'Martin'; you noticed a different test suddenly failed? **Yes. To fix it, I need to fire a ``submit`` event and I don't know how to do that. I will let the acceptance tests cover it for now. In the mean time, I will skip this test.**
 
 ```js
 
