@@ -16,22 +16,18 @@ What is buster? **buster.js is the javascript testing framework I am using for t
 
 What is wisdom.js? **That is the man behind the curtain.**
 
-How do you run the tests? **Open greeter-test.html in Chrome or Firefox (not IE).**
+How do you run the tests? **Open greeter-test.html in a modern browser.**
 
 How do you run the application? **Open greeter-test.html. A build script strips out all the testing for production. I won't show you that in this kata.**
 
 ## Starting
 
-How would you write hello world in javascript?
+How would you write hello world in javascript? **I might write ``console.log("Hello World!");``**
 
-```js
 
-console.log("Hello World!");
-
-```
 ## Test 1
 
-Shouldn't you have written a test first? **Oops, I forgot this was a TDD kata.**
+Can you write a test that helps you implement it. **Sure. I will put it in ``lib/greeter-test.js``**
 
 ```js
 
@@ -45,8 +41,6 @@ buster.testCase("Greeter", {
     }
 
 });
-
-
 ```
 Is this test failing with an _Error_ or a _Failure_?  **Error! I get ReferenceError: greeter is not defined**
 
@@ -59,7 +53,6 @@ var greeter = {
     greet: function () {
     }
 };
-
 ```
 Is the message clear? **Yes**
 
@@ -71,7 +64,6 @@ How do you make it pass?
     greet: function () {
         console.log("Hello, world!");
     }
-
 ```
 Is your test passing? **Yes**
 
@@ -82,9 +74,7 @@ Why not? **I am logging to the console. Nobody logs to the console.**
 Where should your output be going? **I don't know. HTML, stderr, stdout, audio?**
 
 ## Test 1 - refactor
-Can you rewrite your code and test without specifying where the output will go? **Sure**
-
-Ok, rewrite the first test.
+How does writing to ``console.log`` feel? **Ugly! I am going to rewrite it so I don't have to care. Notice I create a constructor for ``greeter`` that takes a ``voice``.**
 
 ```js
 
@@ -99,7 +89,6 @@ buster.testCase("Greeter", {
     }
 
 });
-
 ```
 Is this test _erroring_ or _failing_? **Erroring**
 
@@ -117,7 +106,6 @@ var CreateGreeter = function (voice) {
         }
     };
 };
-
 ```
 Why didn't you finish the implementation? **I wanted to see the test fail and check it's failure message.**
 
@@ -129,7 +117,6 @@ Is it difficult to make it pass now? **No**
         greet: function () {
             voice("Hello, world!");
         }
-
 ```
 Are you done? **No**
 
@@ -137,14 +124,13 @@ Why not? **It doesn't do anything!**
 
 How do you know it doesn't do anything? **If I run it, it shows nothing.**
 ## End to End Test
-How do you run it? **I add the following to the bottom of greeter.js and check the browser and browser console (F12).**
+How do you run it? **I add the following inside a document ready block inside of ``greeter.js`` and check the browser and browser console (F12).**
 
 ```js
 
-$(function () {
+$( document ).ready( function() { 
     CreateGreeter(voice).greet();
 });
-
 ```
 
 You are using the test HTML as your final HTML? **Yes, I will run it through a build system which will strip out the testing.**
@@ -159,7 +145,7 @@ How do you implement voice? **I don't know. Where should I send the output?**
 
 If I pick console.log, can you implement it? **Of course.**
 
-## Test 2 (new test case)
+## Test 2 (new test case: Voice)
 Should you write a test first? **Yes, this is a TDD Kata after all.**
 
 ```js
@@ -168,12 +154,11 @@ buster.testCase("Voice", {
 
     "speaks via console.log": function () {
         this.stub(console, "log");
-        voice("sup");
-        assert.calledWith(console.log, "sup");
+        voice("wazzaap");
+        assert.calledWith(console.log, "wazzaap");
     }
 
 });
-
 ```
 Does it pass? **No, it outputs an error.**
 
@@ -184,7 +169,6 @@ Can you make it fail? **Sure**
 
 var voice = function (speech) {
 };
-
 ```
 Is the message clear? **Yes**
 
@@ -196,7 +180,6 @@ Can you make it pass? **No problem.**
 var voice = function (speech) {
     console.log(speech);
 };
-
 ```
 It everything working? **Yes**
 
@@ -221,12 +204,11 @@ buster.testCase("Voice", {
     ,
     "speaks to the DOM": function () {
         this.stub(jQuery.prototype, "html");
-        voice("sup");
-        assert.calledWith(jQuery.prototype.html, "sup");
+        voice("wazzaap");
+        assert.calledWith(jQuery.prototype.html, "wazzaap");
     }
 
 });
-
 ```
 Does it pass? **No, it is failing. Notice I didn't forget my comma :)**
 
@@ -240,10 +222,9 @@ var voice = function (speech) {
     console.log(speech);
     $("#voiceBox").html(speech);
 };
-
 ```
+## Test 3 - Cleaning up: Removing old code and unused tests
 Hey! you're still logging to the console! **I am removing the test and the code for console logging now.**
-## Test 3 - clean up
 
 ```js
 
@@ -251,12 +232,11 @@ buster.testCase("Voice", {
 
     "speaks to the DOM": function() {
         this.stub(jQuery.prototype, "html");
-        voice('sup');
-        assert.calledWith(jQuery.prototype.html, 'sup');
+        voice('wazzaap');
+        assert.calledWith(jQuery.prototype.html, 'wazzaap');
     }
 
 });
-
 ```
 
 ```js
@@ -282,7 +262,6 @@ buster.testCase("Voice", {
     }
 
 });
-
 ```
 ## Test 4 - passing
 Can you make this one pass? **I just need to call show.**
@@ -293,7 +272,6 @@ var voice = function (speech) {
     $("#voiceBox").html(speech);
     $("#voiceBox").show();
 };
-
 ```
 ## Test 4 - refactor
 I see some duplication. **I am cleaning that up right now.**
@@ -305,7 +283,6 @@ var voice = function (speech) {
     voiceBox.html(speech);
     voiceBox.show();
 };
-
 ```
 ## End to End Test
 Why am I seeing the wrong message? **If I remove the testing lines from the html file, you will see the correct message (Hello World). That reminds me, I need to stub html() and show() in all Voice tests.**
@@ -326,10 +303,9 @@ buster.testCase("Voice", {
     }
 
 });
-
 ```
 ## Test 5
-That's better, but the message hangs around forever. Can you make it go away? **Yes, I am adding a test for that.**
+That's better, but the message hangs around forever. Can you make it go away? **Yes, I am adding a test for that. Notice how I use a Fake timer to avoid slow tests.**
 
 ```js
 
@@ -351,7 +327,6 @@ buster.testCase("Voice", {
     }
 
 });
-
 ```
 ## Test 5 - passing
 I noticed that you used "refute.called" **Yes, that ensures that I don't just call slideUp immediately.**
@@ -364,9 +339,8 @@ var voice = function (speech) {
     ...
     setTimeout(function () { voiceBox.slideUp() }, 5000);
 };
-
 ```
-## Test 6
+## Test 6 - (back to Greeter)
 The greeting feels a little impersonal. **I am adding the greetee's name.**
 
 ```js
@@ -384,7 +358,6 @@ buster.testCase("Greeter", {
     }
 
 });
-
 ```
 ## Test 6 - passing
 
@@ -394,9 +367,9 @@ var CreateGreeter = function (voice) {
     ...
         greet: function (name) {
             voice("Hello, " + name + "!");
+        }
     ...
 };
-
 ```
 ## Test 6 - refactor
 The tests have duplicate setup. **I am extracting it into a setUp.**
@@ -421,7 +394,6 @@ buster.testCase("Greeter", {
     }
 
 });
-
 ```
 I notice the End to End test shows 'Hello, undefined!'. **Yes, I am fixing it by listening for a name.**
 
@@ -444,9 +416,8 @@ buster.testCase("Greeter", {
    }
 
 });
-
 ```
-I like how you used setUp. **Yeah. I am glad we removed that duplication so that we can update all the tests at once.**
+I like how you used setUp. **Yeah. I am glad we removed that duplication so that we can update all the tests at once. Also notice, I added the ``ear`` argument.**
 ## Test 7 - passing
 
 ```js
@@ -464,10 +435,9 @@ var CreateGreeter = function (voice, ear) {
         }
     };
 });
-
 ```
 You seem to be missing an ear. **Uh, I can hear you! Yes, I am writing a test for that.**
-## Test 8 (new test case)
+## Test 8 (new test case: Ear)
 
 ```js
 
@@ -483,7 +453,6 @@ buster.testCase("Ear", {
     }
 
 });
-
 ```
 Why are you using a spy? **Spys allow asserts without changing the behavior of function it is spying on.**
 
@@ -494,7 +463,6 @@ Why are you using a spy? **Spys allow asserts without changing the behavior of f
 var ear = function (callback) {
     callback("Martin");
 };
-
 ```
 
 What is up with 'Martin'? **Just a place holder, it will be gone soon.**
@@ -513,7 +481,6 @@ buster.testCase("Ear", {
     }
 
 });
-
 ```
 ## Test 9 - passing
 
@@ -524,7 +491,6 @@ var ear = function (callback) {
     earBox.show();
     ...
 };
-
 ```
 Why is the earBox showing up? **I am stubbing 'jQuery.show' in all the Ear tests to make it disappear.**
 
@@ -538,7 +504,6 @@ buster.testCase("Ear", {
     ...
 
 });
-
 ```
 ## Test 10
 
@@ -556,7 +521,6 @@ buster.testCase("Ear", {
     }
 
 });
-
 ```
 ## Test 10 - passing
 
@@ -571,7 +535,6 @@ var ear = function (callback) {
         return false;
     });
 };
-
 ```
 Thanks for getting rid of 'Martin'; you noticed a different test suddenly failed? **Yes. To fix it, I need to fire a ``submit`` event and I don't know how to do that. I will let the acceptance tests cover it for now. In the mean time, I will skip this test.**
 
@@ -582,19 +545,18 @@ buster.testCase("Ear", {
     "//notifies after hearing something": function(done) {
     ...
 });
-
 ```
 ## End to End
 Does the end to end test pass? **Not yet. I need to update the document.ready function.**
 
 ```js
 
-$(function () {
+$( document ).ready (function () {
     CreateGreeter(voice, ear).listen()
 });
 
 ```
-## Test 11
+## Test 11 - (back to Greeter)
 What now? **I seek wisdom.**
 
 ```js
@@ -621,7 +583,7 @@ var CreateGreeter = function (voice, ear) {
     return {
         greet: function (name) {
             ...
-            this.name = name;
+            this.name = name; Todo this should be in ear
         },
         ...
         ,
@@ -655,7 +617,7 @@ buster.testCase("Greeter", {
 });
 
 ```
-How are you going to make this pass? **A guru with a callback.**
+How are you going to make this pass? **A guru with a callback. Notice I remembered to add ``guru`` the parameters.**
 
 ```js
 
@@ -675,7 +637,7 @@ var CreateGreeter = function (voice, ear, guru) {
 };
 
 ```
-Another one of your tests failed. **That is part of designing. Here is a fix.**
+Another one of your tests failed. **That is part of designing. I need to replace ``guru`` and the ``assert``**
 
 ```js
 
@@ -684,6 +646,7 @@ buster.testCase("Greeter", {
     setUp: function () {
         ...
         this.guru = this.spy(function (callback) { callback('nugget of wisdom'); });
+        ...
 
     ...
     "sends a pearl of wisdom": function () {
@@ -695,7 +658,7 @@ buster.testCase("Greeter", {
 
 ```
 
-## Test 13 (new test case)
+## Test 13 (new test case: Guru)
 You seem a little distracted? **Yes, I really need a guru.**
 
 
@@ -713,9 +676,8 @@ buster.testCase("Guru", {
 });
 
 ```
-Is the test erroring or failing? **ReferenceError**
-
 ## Test 13 - timing out
+Is the test erroring or failing? **ReferenceError. I can fix this with a ``guru``**
 
 ```js
 
@@ -743,7 +705,7 @@ var guru = function (callback) {
 ```
 
 What is wisdom.index? You didn't test it. **A magical way of getting wisdom. Normally I would test it, but this kata is long enough.**
-## Test 14
+## Test 14 - (back to Greeter)
 
 How are we going to finish? **With pontificate repeating different sayings.**
 
@@ -759,7 +721,7 @@ buster.testCase("Greeter", {
     ...
 
     ,
-    "starts the guru speaking every few seconds": function () {
+    "prompts guru to pontificates every few seconds": function () {
         var pontificator = this.stub(this.greeter, "pontificate");
         this.greeter.greet("Michael");
         assert.called(this.repeater);
@@ -792,13 +754,13 @@ var repeater = function (callback, timeout) {
 
 ...
 
-$(function () {
+$( document ).ready( function() { 
     CreateGreeter(voice, ear, guru, repeater).listen();
 });
 
 ```
 
-If you made it here, you deserve a pat on the back and a snack. **Thank you!**
+You made it, good work. You deserve a pat on the back, a snack and a a bit of wisdom. **Thank you!**
 
 ---
 
