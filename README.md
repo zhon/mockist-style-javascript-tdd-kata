@@ -27,7 +27,7 @@ How would you write hello world in javascript? **I might write ``console.log("He
 
 ## Test 1
 
-Can you write a test that helps you implement it. **Sure. I will put it in ``lib/greeter-test.js``**
+Can you write a test that helps you implement it. **Sure. I will put it in ``test/greeter-test.js``**
 
 ```js
 
