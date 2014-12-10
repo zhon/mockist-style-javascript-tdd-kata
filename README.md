@@ -513,7 +513,7 @@ buster.testCase("Ear", {
     ...
 
     ,
-    "watches for a submit event": function () {
+    "attaches to the submit event": function () {
         this.stub(jQuery.prototype, "show");
         this.stub(jQuery.prototype, "submit");
         ear(this.stub());
